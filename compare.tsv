@@ -4,8 +4,8 @@ CommonMark	Glip	Slack
 [link](http://a.com)	[link](http://a.com)	<http://a.com|link>
 > quote	> quote	
 	~~strikethrough~~	~strikerthrough~
-	_underline_
-* list	* list
-	|three|column|table|
+	_underline_	
+* list	* list	
+	|three|column|table|	
 `inline code`		`inline code`
 ```pre```		```pre```
