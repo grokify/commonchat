@@ -3,7 +3,7 @@ CommonMark	Glip	Slack
 **bold** or __bold__	**bold**	*bold*
 [link](http://a.com)	[link](http://a.com)	<http://a.com|link>
 > quote	> quote	
-	~~strikethrough~~	~strikerthrough~
+	~~strikethrough~~	~strikethrough~
 	_underline_	
 * list	* list	
 	|three|column|table|	
