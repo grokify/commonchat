@@ -4,9 +4,9 @@ CommonMark	GFM	Glip	Slack
 [link](http://a.com)	[link](http://a.com)	[link](http://a.com)	<http://a.com|link>
 > quote	> quote	> quote	
 	~~strikethrough~~	~~strikethrough~~	~strikethrough~
-	_underline_	
+	_underline_		
 * list	* list	* list	
-	|three|column|table|	|three|column|table|		
+	|three|column|table|	|three|column|table|	
 `inline code`	`inline code`		`inline code`
 ```pre```	```pre```		```pre```
 	:emoji:	:emoji:	:emoji:
