@@ -1,0 +1,11 @@
+CommonMark	Glip	Slack
+*italic* or _italic_	*italis*	_italic_
+**bold** or __bold__	**bold**	*bold*
+[link](http://a.com)	[link](http://a.com)	<http://a.com|link>
+> quote	> quote
+	~~strikethrough~~	~strikerthrough~
+	_underline_
+* list	* list
+	|three|column|table|
+`inline code`		`inline code`
+```pre```		```pre```

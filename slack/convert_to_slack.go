@@ -56,6 +56,7 @@ func ConvertAttachmentSlack(commonAttachment cc.Attachment) Attachment {
 		Title:        ConvertMarkdownSlack(commonAttachment.Title),
 		Pretext:      ConvertMarkdownSlack(commonAttachment.Pretext),
 		Text:         ConvertMarkdownSlack(commonAttachment.Text),
+		Color:        commonAttachment.Color,
 		Fields:       ConvertFieldsSlack(commonAttachment.Fields),
 		ThumbnailURL: commonAttachment.ThumbnailURL,
 		MrkdwnIn:     []string{"text"}}
@@ -74,6 +75,7 @@ type Attachment struct {
 	Title        string   `json:"title,omitempty"`
 	Pretext      string   `json:"pretext,omitempty"`
 	Text         string   `json:"text,omitempty"`
+	Color        string   `json:"color,omitempty"`
 	MrkdwnIn     []string `json:"mrkdwn_in,omitempty"`
 	ThumbnailURL string   `json:"thumbnail_url,omitempty"`
 	Fields       []Field  `json:"fields,omitempty"`
