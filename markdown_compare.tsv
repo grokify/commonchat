@@ -6,7 +6,7 @@ CommonMark	GFM	Glip	Slack
 	~~strikethrough~~	~~strikethrough~~	~strikethrough~
 		_underline_	
 * list	* list	* list	
-	|three|column|table|	|three|column|table|	
+	three|column|table	|three|column|table|	
 `inline code`	`inline code`		`inline code`
 ```pre```	```pre```		```pre```
 	:emoji:	:emoji:	:emoji:
