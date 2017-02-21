@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	cc "github.com/grokify/commonchat"
+	cc "github.com/commonchat/commonchat-go"
 	"github.com/grokify/gotilla/fmt/fmtutil"
 )
 
