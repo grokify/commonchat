@@ -12,6 +12,7 @@ type GlipMessageConverter struct {
 	EmojiURLFormat                 string
 	UseMarkdownQuote               bool
 	UseShortFields                 bool
+	UseFieldExtraSpacing           bool
 	ActivityIncludeIntegrationName bool
 }
 
@@ -76,6 +77,7 @@ func (cv *GlipMessageConverter) RenderAttachments(attachments []cc.Attachment) s
 				if len(shortFields) == 2 {
 					fieldLines := cv.BuildShortFieldLines(shortFields)
 					if len(fieldLines) > 0 {
+						lines = cv.AppendEmptyLine(lines)
 						lines = append(lines, fieldLines...)
 					}
 					shortFields = []cc.Field{}
@@ -85,16 +87,20 @@ func (cv *GlipMessageConverter) RenderAttachments(attachments []cc.Attachment) s
 				if len(shortFields) > 0 {
 					fieldLines := cv.BuildShortFieldLines(shortFields)
 					if len(fieldLines) > 0 {
+						lines = cv.AppendEmptyLine(lines)
 						lines = append(lines, fieldLines...)
 					}
 				}
 				shortFields = []cc.Field{}
 			}
-			if len(field.Title) > 0 {
-				lines = append(lines, fmt.Sprintf("%s**%s**", prefix, field.Title))
-			}
-			if len(field.Value) > 0 {
-				lines = append(lines, fmt.Sprintf("%s%s", prefix, field.Value))
+			if len(field.Title) > 0 || len(field.Value) > 0 {
+				lines = cv.AppendEmptyLine(lines)
+				if len(field.Title) > 0 {
+					lines = append(lines, fmt.Sprintf("%s**%s**", prefix, field.Title))
+				}
+				if len(field.Value) > 0 {
+					lines = append(lines, fmt.Sprintf("%s%s", prefix, field.Value))
+				}
 			}
 		}
 	}
@@ -106,6 +112,7 @@ func (cv *GlipMessageConverter) BuildShortFieldLines(shortFields []cc.Field) []s
 	prefix := cv.GetGlipMarkdownBodyPrefix()
 	for len(shortFields) > 0 {
 		if len(shortFields) >= 2 {
+			lines = cv.AppendEmptyLine(lines)
 			field1 := shortFields[0]
 			field2 := shortFields[1]
 			if len(field2.Title) > 0 || len(field2.Title) > 0 {
@@ -116,6 +123,7 @@ func (cv *GlipMessageConverter) BuildShortFieldLines(shortFields []cc.Field) []s
 			}
 			shortFields = shortFields[2:]
 		} else {
+			lines = cv.AppendEmptyLine(lines)
 			field1 := shortFields[0]
 			if len(field1.Title) > 0 {
 				lines = append(lines, fmt.Sprintf("%s**%s**", prefix, field1.Title))
@@ -124,6 +132,17 @@ func (cv *GlipMessageConverter) BuildShortFieldLines(shortFields []cc.Field) []s
 				lines = append(lines, fmt.Sprintf("%s%s", prefix, field1.Value))
 			}
 			shortFields = shortFields[1:]
+		}
+	}
+	return lines
+}
+
+func (cv *GlipMessageConverter) AppendEmptyLine(lines []string) []string {
+	if cv.UseFieldExtraSpacing {
+		if len(lines) > 0 {
+			if len(lines[len(lines)-1]) > 0 {
+				lines = append(lines, "")
+			}
 		}
 	}
 	return lines
