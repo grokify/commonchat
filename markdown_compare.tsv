@@ -8,5 +8,5 @@ CommonMark	GFM	Glip	Slack
 * list	* list	* list	
 	three|column|table	|three|column|table|	
 `inline code`	`inline code`		`inline code`
-```pre```	```pre```		```pre```
+```pre```	```pre```	[code]	```pre```
 	:emoji:	:emoji:	:emoji:
