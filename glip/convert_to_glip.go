@@ -1,4 +1,4 @@
-package commonchat
+package glipmarkdown
 
 import (
 	"fmt"
@@ -10,15 +10,15 @@ import (
 
 type GlipMessageConverter struct {
 	EmojiURLFormat                 string
+	ActivityIncludeIntegrationName bool
+	UseAttachments                 bool // overrides other 'use' options
 	UseMarkdownQuote               bool
 	UseShortFields                 bool
 	UseFieldExtraSpacing           bool
-	ActivityIncludeIntegrationName bool
 }
 
 func NewGlipMessageConverter() GlipMessageConverter {
-	cv := GlipMessageConverter{}
-	return cv
+	return GlipMessageConverter{}
 }
 
 func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) glipwebhook.GlipWebhookMessage {
@@ -26,6 +26,7 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 		Activity: commonMessage.Activity,
 		Title:    commonMessage.Title,
 		Icon:     commonMessage.IconURL}
+
 	if len(commonMessage.IconURL) > 0 {
 		glip.Icon = commonMessage.IconURL
 	} else if len(commonMessage.IconEmoji) > 0 {
@@ -38,28 +39,66 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 	if len(commonMessage.Text) > 0 {
 		bodyLines = append(bodyLines, commonMessage.Text)
 	}
+
 	if len(commonMessage.Attachments) > 0 {
-		attachmentText := cv.RenderAttachments(commonMessage.Attachments)
-		if len(attachmentText) > 0 {
-			bodyLines = append(bodyLines, attachmentText)
+		if cv.UseAttachments {
+			glip.Attachments = convertAttachments(commonMessage.Attachments)
+		} else {
+			attachmentText := cv.renderAttachmentsAsMarkdown(commonMessage.Attachments)
+			if len(attachmentText) > 0 {
+				bodyLines = append(bodyLines, attachmentText)
+			}
 		}
 	}
+
 	if len(bodyLines) > 0 {
 		glip.Body = strings.Join(bodyLines, "\n")
 	}
 	return glip
 }
 
-func (cv *GlipMessageConverter) GetGlipMarkdownBodyPrefix() string {
+func (cv *GlipMessageConverter) getMarkdownBodyPrefix() string {
 	if cv.UseMarkdownQuote {
 		return "> "
 	}
 	return ""
 }
 
-func (cv *GlipMessageConverter) RenderAttachments(attachments []cc.Attachment) string {
+func convertAttachments(commonAttachments []cc.Attachment) []glipwebhook.Attachment {
+	glipAttachments := []glipwebhook.Attachment{}
+	for _, commonAttachment := range commonAttachments {
+		glipAttachments = append(glipAttachments, convertAttachment(commonAttachment))
+	}
+	return glipAttachments
+}
+
+func convertAttachment(commonAttachment cc.Attachment) glipwebhook.Attachment {
+	return glipwebhook.Attachment{
+		Title:   commonAttachment.Title,
+		Pretext: commonAttachment.Pretext,
+		Text:    commonAttachment.Text,
+		Color:   commonAttachment.Color,
+		Fields:  convertFields(commonAttachment.Fields)}
+}
+
+func convertFields(commonFields []cc.Field) []glipwebhook.Field {
+	glipFields := []glipwebhook.Field{}
+	for _, commonField := range commonFields {
+		glipFields = append(glipFields, convertField(commonField))
+	}
+	return glipFields
+}
+
+func convertField(commonField cc.Field) glipwebhook.Field {
+	return glipwebhook.Field{
+		Title: commonField.Title,
+		Value: commonField.Value,
+		Short: commonField.Short}
+}
+
+func (cv *GlipMessageConverter) renderAttachmentsAsMarkdown(attachments []cc.Attachment) string {
 	lines := []string{}
-	prefix := cv.GetGlipMarkdownBodyPrefix()
+	prefix := cv.getMarkdownBodyPrefix()
 	shortFields := []cc.Field{}
 	for _, att := range attachments {
 		if len(att.Title) > 0 {
@@ -75,9 +114,9 @@ func (cv *GlipMessageConverter) RenderAttachments(attachments []cc.Attachment) s
 			if field.Short {
 				shortFields = append(shortFields, field)
 				if len(shortFields) == 2 {
-					fieldLines := cv.BuildShortFieldLines(shortFields)
+					fieldLines := cv.buildMarkdownShortFieldLines(shortFields)
 					if len(fieldLines) > 0 {
-						lines = cv.AppendEmptyLine(lines)
+						lines = cv.appendEmptyLine(lines)
 						lines = append(lines, fieldLines...)
 					}
 					shortFields = []cc.Field{}
@@ -85,16 +124,16 @@ func (cv *GlipMessageConverter) RenderAttachments(attachments []cc.Attachment) s
 				continue
 			} else {
 				if len(shortFields) > 0 {
-					fieldLines := cv.BuildShortFieldLines(shortFields)
+					fieldLines := cv.buildMarkdownShortFieldLines(shortFields)
 					if len(fieldLines) > 0 {
-						lines = cv.AppendEmptyLine(lines)
+						lines = cv.appendEmptyLine(lines)
 						lines = append(lines, fieldLines...)
 					}
 				}
 				shortFields = []cc.Field{}
 			}
 			if len(field.Title) > 0 || len(field.Value) > 0 {
-				lines = cv.AppendEmptyLine(lines)
+				lines = cv.appendEmptyLine(lines)
 				if len(field.Title) > 0 {
 					lines = append(lines, fmt.Sprintf("%s**%s**", prefix, field.Title))
 				}
@@ -107,12 +146,12 @@ func (cv *GlipMessageConverter) RenderAttachments(attachments []cc.Attachment) s
 	return strings.Join(lines, "\n")
 }
 
-func (cv *GlipMessageConverter) BuildShortFieldLines(shortFields []cc.Field) []string {
+func (cv *GlipMessageConverter) buildMarkdownShortFieldLines(shortFields []cc.Field) []string {
 	lines := []string{}
-	prefix := cv.GetGlipMarkdownBodyPrefix()
+	prefix := cv.getMarkdownBodyPrefix()
 	for len(shortFields) > 0 {
 		if len(shortFields) >= 2 {
-			lines = cv.AppendEmptyLine(lines)
+			lines = cv.appendEmptyLine(lines)
 			field1 := shortFields[0]
 			field2 := shortFields[1]
 			if len(field2.Title) > 0 || len(field2.Title) > 0 {
@@ -123,7 +162,7 @@ func (cv *GlipMessageConverter) BuildShortFieldLines(shortFields []cc.Field) []s
 			}
 			shortFields = shortFields[2:]
 		} else {
-			lines = cv.AppendEmptyLine(lines)
+			lines = cv.appendEmptyLine(lines)
 			field1 := shortFields[0]
 			if len(field1.Title) > 0 {
 				lines = append(lines, fmt.Sprintf("%s**%s**", prefix, field1.Title))
@@ -137,7 +176,7 @@ func (cv *GlipMessageConverter) BuildShortFieldLines(shortFields []cc.Field) []s
 	return lines
 }
 
-func (cv *GlipMessageConverter) AppendEmptyLine(lines []string) []string {
+func (cv *GlipMessageConverter) appendEmptyLine(lines []string) []string {
 	if cv.UseFieldExtraSpacing {
 		if len(lines) > 0 {
 			if len(lines[len(lines)-1]) > 0 {
@@ -148,6 +187,7 @@ func (cv *GlipMessageConverter) AppendEmptyLine(lines []string) []string {
 	return lines
 }
 
+/*
 func (cv *GlipMessageConverter) RenderMessage(message cc.Message) string {
 	lines := []string{}
 	attachments := cv.RenderAttachments(message.Attachments)
@@ -156,8 +196,9 @@ func (cv *GlipMessageConverter) RenderMessage(message cc.Message) string {
 	}
 	return strings.Join(lines, "\n")
 }
+*/
 
-func (cv *GlipMessageConverter) IntegrationActivitySuffix(displayName string) string {
+func (cv *GlipMessageConverter) integrationActivitySuffix(displayName string) string {
 	if cv.ActivityIncludeIntegrationName {
 		return fmt.Sprintf(" (%v)", displayName)
 	}
