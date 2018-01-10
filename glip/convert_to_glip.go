@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	cc "github.com/commonchat/commonchat-go"
-	"github.com/grokify/glip-go-webhook"
+	"github.com/grokify/go-glip"
 )
 
 type GlipMessageConverter struct {
