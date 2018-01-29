@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	cc "github.com/commonchat/commonchat-go"
+	cc "github.com/grokify/commonchat"
 	"github.com/grokify/go-glip"
 )
 
