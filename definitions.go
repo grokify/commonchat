@@ -23,7 +23,7 @@ type Attachment struct {
 	Text         string   `json:"text,omitempty"`
 	Color        string   `json:"color,omitempty"`
 	ThumbnailURL string   `json:"thumbnail_url,omitempty"`
-	MrkdwnIn     []string `json"mrkdwn_in,omitempty"`
+	MrkdwnIn     []string `json:"mrkdwn_in,omitempty"`
 	Fields       []Field  `json:"fields,omitempty"`
 }
 
