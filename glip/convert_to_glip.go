@@ -1,4 +1,4 @@
-package glipmarkdown
+package glip
 
 import (
 	"fmt"

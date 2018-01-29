@@ -8,22 +8,22 @@ import (
 	"github.com/grokify/gotilla/fmt/fmtutil"
 )
 
-func ConvertCommonMessage(commonMessage cc.Message) Message {
+func ConvertCommonMessage(ccMsg cc.Message) Message {
 	slackMessage := Message{
-		Attachments: ConvertAttachmentsSlack(commonMessage.Attachments),
-		IconEmoji:   commonMessage.IconEmoji,
-		IconURL:     commonMessage.IconURL,
+		Attachments: ConvertAttachmentsSlack(ccMsg.Attachments),
+		IconEmoji:   ccMsg.IconEmoji,
+		IconURL:     ccMsg.IconURL,
 		Mrkdwn:      true}
 
 	textLines := []string{}
-	if len(commonMessage.Activity) > 0 {
-		textLines = append(textLines, commonMessage.Activity)
+	if len(ccMsg.Activity) > 0 {
+		textLines = append(textLines, ccMsg.Activity)
 	}
-	if len(commonMessage.Title) > 0 {
-		textLines = append(textLines, commonMessage.Title)
+	if len(ccMsg.Title) > 0 {
+		textLines = append(textLines, ccMsg.Title)
 	}
-	if len(commonMessage.Text) > 0 {
-		textLines = append(textLines, commonMessage.Text)
+	if len(ccMsg.Text) > 0 {
+		textLines = append(textLines, ccMsg.Text)
 	}
 	if len(textLines) > 0 {
 		text := strings.Join(textLines, "\n")
