@@ -74,7 +74,7 @@ func (client *SlackWebhookClient) PostWebhookFast(url string, message Message) (
 	req.Header.SetMethod(HTTPMethod)
 	req.Header.SetRequestURI(url)
 
-	req.Header.Set(httputilmore.ContentTypeHeader, httputilmore.ContentTypeValueJSONUTF8)
+	req.Header.Set(httputilmore.HeaderContentType, httputilmore.HeaderContentTypeValueJSONUTF8)
 
 	err = client.FastClient.Do(req, resp)
 	return req, resp, err
