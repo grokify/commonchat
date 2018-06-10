@@ -2,6 +2,7 @@ package glip
 
 import (
 	"encoding/json"
+	"fmt"
 
 	cc "github.com/grokify/commonchat"
 	//ccglip "github.com/grokify/commonchat/glip"
@@ -43,11 +44,19 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message cc.Message, gli
 	glipMessage := adapter.CommonConverter.ConvertCommonMessage(message)
 	glipmsg = &glipMessage
 
-	glipMessageString, err := json.Marshal(glipMessage)
+	glipMessageBytes, err := json.Marshal(glipMessage)
 	if err == nil {
 		log.WithFields(log.Fields{
 			"event":   "outgoing.webhook.glip",
-			"handler": "Glip Adapter"}).Info(string(glipMessageString))
+			"handler": "Glip Adapter"}).Info(string(glipMessageBytes))
+	}
+	if 1 == 1 {
+		fmt.Println(string(glipMessageBytes))
+		glipMessageJson, err := json.MarshalIndent(glipMessage, "", "  ")
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(string(glipMessageJson))
 	}
 	return adapter.GlipClient.PostWebhookGUIDFast(urlOrUid, glipMessage)
 }

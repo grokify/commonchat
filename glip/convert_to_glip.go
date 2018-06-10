@@ -74,6 +74,7 @@ func convertAttachments(commonAttachments []cc.Attachment) []glipwebhook.Attachm
 
 func convertAttachment(commonAttachment cc.Attachment) glipwebhook.Attachment {
 	return glipwebhook.Attachment{
+		Type:    "Card",
 		Title:   commonAttachment.Title,
 		Pretext: commonAttachment.Pretext,
 		Text:    commonAttachment.Text,
