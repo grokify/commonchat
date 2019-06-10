@@ -1,20 +1,20 @@
-package commonchat
+package slack
+
+import "encoding/json"
 
 type Message struct {
-	Activity    string       `json:"activity,omitempty"`
+	Attachments []Attachment `json:"attachments,omitempty"`
 	IconEmoji   string       `json:"icon_emoji,omitempty"`
 	IconURL     string       `json:"icon_url,omitempty"`
-	Title       string       `json:"title,omitempty"`
+	Mrkdwn      bool         `json:"mrkdwn,omitempty"`
 	Text        string       `json:"text,omitempty"`
-	Attachments []Attachment `json:"attachments,omitempty"`
+	Username    string       `json:"username,omitempty"`
 }
 
-func NewMessage() Message {
-	return Message{Attachments: []Attachment{}}
-}
-
-func (msg *Message) AddAttachment(att Attachment) {
-	msg.Attachments = append(msg.Attachments, att)
+func NewMessageFromBytes(bytes []byte) (Message, error) {
+	msg := Message{}
+	err := json.Unmarshal(bytes, &msg)
+	return msg, err
 }
 
 type Attachment struct {
@@ -29,16 +29,8 @@ type Attachment struct {
 	Title        string   `json:"title,omitempty"`
 }
 
-func NewAttachment() Attachment {
-	return Attachment{Fields: []Field{}, MarkdownIn: []string{"text"}}
-}
-
 type Field struct {
 	Title string `json:"title,omitempty"`
 	Value string `json:"value,omitempty"`
 	Short bool   `json:"short,omitempty"`
-}
-
-func (attach *Attachment) AddField(field Field) {
-	attach.Fields = append(attach.Fields, field)
 }
