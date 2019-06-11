@@ -36,7 +36,7 @@ type SlackWebhookClient struct {
 
 func NewSlackWebhookClient(urlOrUid string, clientType ClientType) (SlackWebhookClient, error) {
 	log.WithFields(log.Fields{
-		"lib": "slack_client.go",
+		"lib":                     "slack_client.go",
 		"request_url_client_init": urlOrUid}).Debug("")
 
 	client := SlackWebhookClient{UrlPrefix: regexp.MustCompile(`^https:`)}
@@ -54,7 +54,7 @@ func (client *SlackWebhookClient) BuildWebhookURL(urlOrUid string) string {
 	rs := rx.FindString(urlOrUid)
 	if len(rs) > 0 {
 		log.WithFields(log.Fields{
-			"lib": "slack_client.go",
+			"lib":                    "slack_client.go",
 			"request_url_http_match": urlOrUid}).Debug("")
 		return urlOrUid
 	}
