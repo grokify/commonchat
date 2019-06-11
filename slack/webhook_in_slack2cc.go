@@ -2,6 +2,7 @@ package slack
 
 import (
 	cc "github.com/grokify/commonchat"
+	"github.com/grokify/gotilla/text/markdown"
 )
 
 func WebhookInBodySlackToCc(slMsg Message) cc.Message {
@@ -19,13 +20,15 @@ func WebhookInBodySlackToCc(slMsg Message) cc.Message {
 
 func attachmentSlackToCc(slAtt Attachment) cc.Attachment {
 	ccAtt := cc.Attachment{
+		AuthorIcon:   slAtt.AuthorIcon,
+		AuthorLink:   slAtt.AuthorLink,
 		AuthorName:   slAtt.AuthorName,
 		Color:        slAtt.Color,
 		Fallback:     slAtt.Fallback,
 		Fields:       []cc.Field{},
 		MarkdownIn:   slAtt.MarkdownIn,
-		Pretext:      slAtt.Pretext,
-		Text:         slAtt.Text,
+		Pretext:      markdown.SkypeToMarkdown(slAtt.Pretext),
+		Text:         markdown.SkypeToMarkdown(slAtt.Text),
 		ThumbnailURL: slAtt.ThumbnailURL,
 		Title:        slAtt.Title,
 	}
@@ -39,6 +42,6 @@ func fieldSlackToCc(slField Field) cc.Field {
 	ccField := cc.Field{
 		Short: slField.Short,
 		Title: slField.Title,
-		Value: slField.Value}
+		Value: markdown.SkypeToMarkdown(slField.Value)}
 	return ccField
 }

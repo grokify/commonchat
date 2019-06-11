@@ -5,7 +5,9 @@ import (
 	"strings"
 
 	cc "github.com/grokify/commonchat"
-	"github.com/grokify/go-glip"
+	"github.com/grokify/gotilla/text/emoji"
+
+	glipwebhook "github.com/grokify/go-glip"
 )
 
 type GlipMessageConverter struct {
@@ -15,16 +17,17 @@ type GlipMessageConverter struct {
 	UseMarkdownQuote               bool
 	UseShortFields                 bool
 	UseFieldExtraSpacing           bool
+	EmojiConverter                 emoji.Converter
 }
 
 func NewGlipMessageConverter() GlipMessageConverter {
-	return GlipMessageConverter{}
+	return GlipMessageConverter{EmojiConverter: emoji.NewConverter()}
 }
 
 func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) glipwebhook.GlipWebhookMessage {
 	glip := glipwebhook.GlipWebhookMessage{
-		Activity: commonMessage.Activity,
-		Title:    commonMessage.Title,
+		Activity: cv.EmojiConverter.EmojiToAscii(commonMessage.Activity),
+		Title:    cv.EmojiConverter.EmojiToAscii(commonMessage.Title),
 		Icon:     commonMessage.IconURL}
 
 	if len(commonMessage.IconURL) > 0 {
@@ -42,7 +45,7 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 
 	if len(commonMessage.Attachments) > 0 {
 		if cv.UseAttachments {
-			glip.Attachments = convertAttachments(commonMessage.Attachments)
+			glip.Attachments = convertAttachments(&cv.EmojiConverter, commonMessage.Attachments)
 		} else {
 			attachmentText := cv.renderAttachmentsAsMarkdown(commonMessage.Attachments)
 			if len(attachmentText) > 0 {
@@ -64,36 +67,39 @@ func (cv *GlipMessageConverter) getMarkdownBodyPrefix() string {
 	return ""
 }
 
-func convertAttachments(commonAttachments []cc.Attachment) []glipwebhook.Attachment {
+func convertAttachments(emoconv *emoji.Converter, commonAttachments []cc.Attachment) []glipwebhook.Attachment {
 	glipAttachments := []glipwebhook.Attachment{}
 	for _, commonAttachment := range commonAttachments {
-		glipAttachments = append(glipAttachments, convertAttachment(commonAttachment))
+		glipAttachments = append(glipAttachments, convertAttachment(emoconv, commonAttachment))
 	}
 	return glipAttachments
 }
 
-func convertAttachment(commonAttachment cc.Attachment) glipwebhook.Attachment {
+func convertAttachment(emoconv *emoji.Converter, commonAttachment cc.Attachment) glipwebhook.Attachment {
 	return glipwebhook.Attachment{
-		Type:    "Card",
-		Title:   commonAttachment.Title,
-		Pretext: commonAttachment.Pretext,
-		Text:    commonAttachment.Text,
-		Color:   commonAttachment.Color,
-		Fields:  convertFields(commonAttachment.Fields)}
+		AuthorIcon: commonAttachment.AuthorIcon,
+		AuthorLink: commonAttachment.AuthorLink,
+		AuthorName: commonAttachment.AuthorName,
+		Color:      commonAttachment.Color,
+		Fields:     convertFields(emoconv, commonAttachment.Fields),
+		Pretext:    emoconv.EmojiToAscii(commonAttachment.Pretext),
+		Text:       emoconv.EmojiToAscii(commonAttachment.Text),
+		Title:      emoconv.EmojiToAscii(commonAttachment.Title),
+		Type:       "Card"}
 }
 
-func convertFields(commonFields []cc.Field) []glipwebhook.Field {
+func convertFields(emoconv *emoji.Converter, commonFields []cc.Field) []glipwebhook.Field {
 	glipFields := []glipwebhook.Field{}
 	for _, commonField := range commonFields {
-		glipFields = append(glipFields, convertField(commonField))
+		glipFields = append(glipFields, convertField(emoconv, commonField))
 	}
 	return glipFields
 }
 
-func convertField(commonField cc.Field) glipwebhook.Field {
+func convertField(emoconv *emoji.Converter, commonField cc.Field) glipwebhook.Field {
 	return glipwebhook.Field{
 		Title: commonField.Title,
-		Value: commonField.Value,
+		Value: emoconv.EmojiToAscii(commonField.Value),
 		Short: commonField.Short}
 }
 

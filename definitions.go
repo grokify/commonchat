@@ -18,6 +18,8 @@ func (msg *Message) AddAttachment(att Attachment) {
 }
 
 type Attachment struct {
+	AuthorIcon   string   `json:"author_icon,omitempty"`
+	AuthorLink   string   `json:"author_link,omitempty"`
 	AuthorName   string   `json:"author_name,omitempty"`
 	Color        string   `json:"color,omitempty"`
 	Fallback     string   `json:"fallback,omitempty"`
