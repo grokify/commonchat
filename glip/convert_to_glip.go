@@ -32,8 +32,8 @@ func NewGlipMessageConverter() GlipMessageConverter {
 
 func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) glipwebhook.GlipWebhookMessage {
 	glip := glipwebhook.GlipWebhookMessage{
-		Activity: cv.EmojiConverter.EmojiToAscii(commonMessage.Activity),
-		Title:    cv.EmojiConverter.EmojiToAscii(commonMessage.Title),
+		Activity: cv.EmojiConverter.ConvertShortcodesString(commonMessage.Activity, emoji.Unicode),
+		Title:    cv.EmojiConverter.ConvertShortcodesString(commonMessage.Title, emoji.Unicode),
 		Icon:     commonMessage.IconURL}
 
 	if len(commonMessage.IconURL) > 0 {
@@ -88,9 +88,9 @@ func convertAttachment(emoconv *emoji.Converter, convertBacktick3ToCode bool, co
 		AuthorName: commonAttachment.AuthorName,
 		Color:      commonAttachment.Color,
 		Fields:     convertFields(emoconv, convertBacktick3ToCode, commonAttachment.Fields),
-		Pretext:    emoconv.EmojiToAscii(commonAttachment.Pretext),
-		Text:       emoconv.EmojiToAscii(commonAttachment.Text),
-		Title:      emoconv.EmojiToAscii(commonAttachment.Title),
+		Pretext:    emoconv.ConvertShortcodesString(commonAttachment.Pretext, emoji.Unicode),
+		Text:       emoconv.ConvertShortcodesString(commonAttachment.Text, emoji.Unicode),
+		Title:      emoconv.ConvertShortcodesString(commonAttachment.Title, emoji.Unicode),
 		Type:       "Card"}
 	if convertBacktick3ToCode {
 		glipAttachment.Pretext = TripleBacktickToCode(glipAttachment.Pretext)
@@ -110,7 +110,7 @@ func convertFields(emoconv *emoji.Converter, convertBacktick3ToCode bool, common
 func convertField(emoconv *emoji.Converter, convertBacktick3ToCode bool, commonField cc.Field) glipwebhook.Field {
 	glipField := glipwebhook.Field{
 		Title: commonField.Title,
-		Value: emoconv.EmojiToAscii(commonField.Value),
+		Value: emoconv.ConvertShortcodesString(commonField.Value, emoji.Unicode),
 		Short: commonField.Short}
 	if convertBacktick3ToCode {
 		glipField.Value = TripleBacktickToCode(glipField.Value)
