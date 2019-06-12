@@ -2,6 +2,7 @@ package glip
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 
 	cc "github.com/grokify/commonchat"
@@ -9,6 +10,8 @@ import (
 
 	glipwebhook "github.com/grokify/go-glip"
 )
+
+var rxTripleBackTick *regexp.Regexp = regexp.MustCompile(`(^|\n)` + "```([^`]*?)```" + `(\n|$)`)
 
 type GlipMessageConverter struct {
 	EmojiURLFormat                 string
@@ -18,10 +21,13 @@ type GlipMessageConverter struct {
 	UseShortFields                 bool
 	UseFieldExtraSpacing           bool
 	EmojiConverter                 emoji.Converter
+	ConvertTripleBacktick          bool
 }
 
 func NewGlipMessageConverter() GlipMessageConverter {
-	return GlipMessageConverter{EmojiConverter: emoji.NewConverter()}
+	return GlipMessageConverter{
+		ConvertTripleBacktick: true,
+		EmojiConverter:        emoji.NewConverter()}
 }
 
 func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) glipwebhook.GlipWebhookMessage {
@@ -45,7 +51,7 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 
 	if len(commonMessage.Attachments) > 0 {
 		if cv.UseAttachments {
-			glip.Attachments = convertAttachments(&cv.EmojiConverter, commonMessage.Attachments)
+			glip.Attachments = convertAttachments(&cv.EmojiConverter, cv.ConvertTripleBacktick, commonMessage.Attachments)
 		} else {
 			attachmentText := cv.renderAttachmentsAsMarkdown(commonMessage.Attachments)
 			if len(attachmentText) > 0 {
@@ -67,40 +73,49 @@ func (cv *GlipMessageConverter) getMarkdownBodyPrefix() string {
 	return ""
 }
 
-func convertAttachments(emoconv *emoji.Converter, commonAttachments []cc.Attachment) []glipwebhook.Attachment {
+func convertAttachments(emoconv *emoji.Converter, convertBacktick3ToCode bool, commonAttachments []cc.Attachment) []glipwebhook.Attachment {
 	glipAttachments := []glipwebhook.Attachment{}
 	for _, commonAttachment := range commonAttachments {
-		glipAttachments = append(glipAttachments, convertAttachment(emoconv, commonAttachment))
+		glipAttachments = append(glipAttachments, convertAttachment(emoconv, convertBacktick3ToCode, commonAttachment))
 	}
 	return glipAttachments
 }
 
-func convertAttachment(emoconv *emoji.Converter, commonAttachment cc.Attachment) glipwebhook.Attachment {
-	return glipwebhook.Attachment{
+func convertAttachment(emoconv *emoji.Converter, convertBacktick3ToCode bool, commonAttachment cc.Attachment) glipwebhook.Attachment {
+	glipAttachment := glipwebhook.Attachment{
 		AuthorIcon: commonAttachment.AuthorIcon,
 		AuthorLink: commonAttachment.AuthorLink,
 		AuthorName: commonAttachment.AuthorName,
 		Color:      commonAttachment.Color,
-		Fields:     convertFields(emoconv, commonAttachment.Fields),
+		Fields:     convertFields(emoconv, convertBacktick3ToCode, commonAttachment.Fields),
 		Pretext:    emoconv.EmojiToAscii(commonAttachment.Pretext),
 		Text:       emoconv.EmojiToAscii(commonAttachment.Text),
 		Title:      emoconv.EmojiToAscii(commonAttachment.Title),
 		Type:       "Card"}
+	if convertBacktick3ToCode {
+		glipAttachment.Pretext = TripleBacktickToCode(glipAttachment.Pretext)
+		glipAttachment.Text = TripleBacktickToCode(glipAttachment.Text)
+	}
+	return glipAttachment
 }
 
-func convertFields(emoconv *emoji.Converter, commonFields []cc.Field) []glipwebhook.Field {
+func convertFields(emoconv *emoji.Converter, convertBacktick3ToCode bool, commonFields []cc.Field) []glipwebhook.Field {
 	glipFields := []glipwebhook.Field{}
 	for _, commonField := range commonFields {
-		glipFields = append(glipFields, convertField(emoconv, commonField))
+		glipFields = append(glipFields, convertField(emoconv, convertBacktick3ToCode, commonField))
 	}
 	return glipFields
 }
 
-func convertField(emoconv *emoji.Converter, commonField cc.Field) glipwebhook.Field {
-	return glipwebhook.Field{
+func convertField(emoconv *emoji.Converter, convertBacktick3ToCode bool, commonField cc.Field) glipwebhook.Field {
+	glipField := glipwebhook.Field{
 		Title: commonField.Title,
 		Value: emoconv.EmojiToAscii(commonField.Value),
 		Short: commonField.Short}
+	if convertBacktick3ToCode {
+		glipField.Value = TripleBacktickToCode(glipField.Value)
+	}
+	return glipField
 }
 
 func (cv *GlipMessageConverter) renderAttachmentsAsMarkdown(attachments []cc.Attachment) string {
@@ -210,4 +225,9 @@ func (cv *GlipMessageConverter) integrationActivitySuffix(displayName string) st
 		return fmt.Sprintf(" (%v)", displayName)
 	}
 	return ""
+}
+
+// TripleBacktickToCode converts markdown triple backticks to Glip code blocks.
+func TripleBacktickToCode(input string) string {
+	return rxTripleBackTick.ReplaceAllString(input, "$1\n[code]\n$2\n[/code]\n$3")
 }
