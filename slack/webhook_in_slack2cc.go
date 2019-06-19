@@ -27,8 +27,8 @@ func attachmentSlackToCc(slAtt Attachment) cc.Attachment {
 		Fallback:     slAtt.Fallback,
 		Fields:       []cc.Field{},
 		MarkdownIn:   slAtt.MarkdownIn,
-		Pretext:      markdown.SkypeToMarkdown(slAtt.Pretext),
-		Text:         markdown.SkypeToMarkdown(slAtt.Text),
+		Pretext:      markdown.SkypeToMarkdown(slAtt.Pretext, true),
+		Text:         markdown.SkypeToMarkdown(slAtt.Text, true),
 		ThumbnailURL: slAtt.ThumbnailURL,
 		Title:        slAtt.Title,
 	}
@@ -42,6 +42,6 @@ func fieldSlackToCc(slField Field) cc.Field {
 	ccField := cc.Field{
 		Short: slField.Short,
 		Title: slField.Title,
-		Value: markdown.SkypeToMarkdown(slField.Value)}
+		Value: markdown.SkypeToMarkdown(slField.Value, true)}
 	return ccField
 }
