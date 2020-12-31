@@ -1,8 +1,8 @@
 package slack
 
 import (
-	cc "github.com/grokify/commonchat"
-	"github.com/grokify/gotilla/text/markdown"
+	cc "github.com/grokify/commonchat/commonchat"
+	"github.com/grokify/simplego/text/markdown"
 )
 
 func WebhookInBodySlackToCc(slMsg Message) cc.Message {

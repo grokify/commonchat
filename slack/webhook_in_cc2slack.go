@@ -4,8 +4,8 @@ import (
 	"regexp"
 	"strings"
 
-	cc "github.com/grokify/commonchat"
-	"github.com/grokify/gotilla/fmt/fmtutil"
+	cc "github.com/grokify/commonchat/commonchat"
+	"github.com/grokify/simplego/fmt/fmtutil"
 )
 
 func ConvertCommonMessage(ccMsg cc.Message) Message {

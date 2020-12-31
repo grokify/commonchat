@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	cc "github.com/grokify/commonchat"
+	cc "github.com/grokify/commonchat/commonchat"
 	//ccglip "github.com/grokify/commonchat/glip"
-	"github.com/grokify/go-glip"
+	glipwebhook "github.com/grokify/go-glip"
 	log "github.com/sirupsen/logrus"
 	"github.com/valyala/fasthttp"
 )

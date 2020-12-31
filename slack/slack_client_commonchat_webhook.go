@@ -3,7 +3,7 @@ package slack
 import (
 	"fmt"
 
-	"github.com/grokify/commonchat"
+	"github.com/grokify/commonchat/commonchat"
 	//"github.com/grokify/commonchat/slack"
 	"github.com/valyala/fasthttp"
 )
