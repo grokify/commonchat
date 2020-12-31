@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	cc "github.com/grokify/commonchat/commonchat"
+	cc "github.com/grokify/commonchat"
 	//ccglip "github.com/grokify/commonchat/glip"
 	glipwebhook "github.com/grokify/go-glip"
 	log "github.com/sirupsen/logrus"

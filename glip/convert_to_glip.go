@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	cc "github.com/grokify/commonchat/commonchat"
+	cc "github.com/grokify/commonchat"
 	"github.com/grokify/simplego/text/emoji"
 
 	glipwebhook "github.com/grokify/go-glip"
