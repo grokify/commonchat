@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	cc "github.com/grokify/commonchat"
-	//ccglip "github.com/grokify/commonchat/glip"
 	glipwebhook "github.com/grokify/go-glip"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
+
+	"github.com/grokify/commonchat"
 )
 
 var (
@@ -40,15 +40,20 @@ func NewGlipAdapter(webhookURLOrUID string) (*GlipAdapter, error) {
 		CommonConverter: converter}, err
 }
 
-func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message cc.Message, glipmsg interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Message, glipmsg interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
 	glipMessage := adapter.CommonConverter.ConvertCommonMessage(message)
 	glipmsg = &glipMessage
 
 	glipMessageBytes, err := json.Marshal(glipMessage)
 	if err == nil {
-		log.WithFields(log.Fields{
-			"event":   "outgoing.webhook.glip",
-			"handler": "Glip Adapter"}).Info(string(glipMessageBytes))
+		//log.WithFields(log.Fields{
+		//	"event":   "outgoing.webhook.glip",
+		//	"handler": "Glip Adapter"}).Info(string(glipMessageBytes)) )
+		log.Info().
+			Str("event", "outgoing.webhook.glip").
+			Str("handler", "Glip Adapter").
+			Msg(string(glipMessageBytes))
+
 	}
 	if 1 == 1 {
 		fmt.Println(string(glipMessageBytes))
@@ -61,7 +66,7 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message cc.Message, gli
 	return adapter.GlipClient.PostWebhookGUIDFast(urlOrUid, glipMessage)
 }
 
-func (adapter *GlipAdapter) SendMessage(message cc.Message, glipmsg interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func (adapter *GlipAdapter) SendMessage(message commonchat.Message, glipmsg interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
 	return adapter.SendWebhook(adapter.WebhookURLOrUID, message, glipmsg)
 }
 

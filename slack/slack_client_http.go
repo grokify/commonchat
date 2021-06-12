@@ -6,14 +6,9 @@ import (
 	"regexp"
 	"strings"
 
-	//"github.com/grokify/commonchat/slack"
 	"github.com/grokify/simplego/net/httputilmore"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
-)
-
-const (
-	HTTPMethod = "POST"
 )
 
 var (
@@ -35,9 +30,10 @@ type SlackWebhookClient struct {
 }
 
 func NewSlackWebhookClient(urlOrUid string, clientType ClientType) (SlackWebhookClient, error) {
-	log.WithFields(log.Fields{
-		"lib":                     "slack_client.go",
-		"request_url_client_init": urlOrUid}).Debug("")
+	log.Debug().
+		Str("lib", "slack_client.go").
+		Str("request_url_client_init", urlOrUid).
+		Msg("NewSlackWebhookClient init")
 
 	client := SlackWebhookClient{UrlPrefix: regexp.MustCompile(`^https:`)}
 	client.WebhookUrl = client.BuildWebhookURL(urlOrUid)
@@ -53,9 +49,10 @@ func (client *SlackWebhookClient) BuildWebhookURL(urlOrUid string) string {
 	rx := regexp.MustCompile(`^https:`)
 	rs := rx.FindString(urlOrUid)
 	if len(rs) > 0 {
-		log.WithFields(log.Fields{
-			"lib":                    "slack_client.go",
-			"request_url_http_match": urlOrUid}).Debug("")
+		log.Debug().
+			Str("lib", "slack_client.go").
+			Str("request_url_http_match", urlOrUid).
+			Msg("BuildWebhookURL")
 		return urlOrUid
 	}
 	return strings.Join([]string{WebhookBaseURL, urlOrUid}, "")
@@ -71,7 +68,7 @@ func (client *SlackWebhookClient) PostWebhookFast(url string, message Message) (
 	}
 	req.SetBody(bytes)
 
-	req.Header.SetMethod(HTTPMethod)
+	req.Header.SetMethod(http.MethodPost)
 	req.Header.SetRequestURI(url)
 
 	req.Header.Set(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
