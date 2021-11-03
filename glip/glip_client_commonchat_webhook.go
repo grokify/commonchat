@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/grokify/commonchat/glip/classic"
+	"github.com/grokify/commonchat/glip/config"
 	glipwebhook "github.com/grokify/go-glip"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
@@ -11,6 +13,7 @@ import (
 	"github.com/grokify/commonchat"
 )
 
+/*
 var (
 	AdaptersGlipActivityIncludeIntegrationName = false
 	AdaptersGlipMarkdownQuote                  = false
@@ -21,19 +24,30 @@ var (
 	WebhookURLOrUID                            = ""
 )
 
+type ConverterConfig struct {
+	EmojiURLFormat                 string
+	ActivityIncludeIntegrationName bool
+	UseAttachments                 bool // overrides other 'use' options
+	UseMarkdownQuote               bool
+	UseShortFields                 bool
+	UseFieldExtraSpacing           bool
+	ConvertTripleBacktick          bool
+}
+*/
+
 type GlipAdapter struct {
 	GlipClient      glipwebhook.GlipWebhookClient
-	CommonConverter GlipMessageConverter
+	CommonConverter classic.GlipMessageConverter
 	EmojiURLFormat  string
 	WebhookURLOrUID string
 }
 
-func NewGlipAdapter(webhookURLOrUID string) (*GlipAdapter, error) {
+func NewGlipAdapter(webhookURLOrUID string, cfg config.ConverterConfig) (*GlipAdapter, error) {
 	glip, err := glipwebhook.NewGlipWebhookClient(webhookURLOrUID)
-	converter := NewGlipMessageConverter()
-	converter.UseAttachments = AdaptersGlipUseAttachments
-	converter.UseShortFields = AdaptersGlipUseShortFields
-	converter.UseFieldExtraSpacing = AdatpersGlipUseFieldExtraSpacing
+	converter := classic.NewGlipMessageConverter(cfg)
+	//converter.UseAttachments = cfg.UseAttachments
+	//converter.UseShortFields = cfg.UseShortFields
+	//converter.UseFieldExtraSpacing = AdatpersGlipUseFieldExtraSpacing
 	return &GlipAdapter{
 		GlipClient:      glip,
 		WebhookURLOrUID: webhookURLOrUID,

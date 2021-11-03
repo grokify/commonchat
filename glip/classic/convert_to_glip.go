@@ -1,4 +1,4 @@
-package glip
+package classic
 
 import (
 	"fmt"
@@ -8,26 +8,31 @@ import (
 	cc "github.com/grokify/commonchat"
 	"github.com/grokify/simplego/text/emoji"
 
+	"github.com/grokify/commonchat/glip/config"
 	glipwebhook "github.com/grokify/go-glip"
 )
 
 var rxTripleBackTick *regexp.Regexp = regexp.MustCompile(`(^|\n)` + "```([^`]*?)```" + `(\n|$)`)
 
 type GlipMessageConverter struct {
-	EmojiURLFormat                 string
-	ActivityIncludeIntegrationName bool
-	UseAttachments                 bool // overrides other 'use' options
-	UseMarkdownQuote               bool
-	UseShortFields                 bool
-	UseFieldExtraSpacing           bool
-	EmojiConverter                 emoji.Converter
-	ConvertTripleBacktick          bool
+	Config         config.ConverterConfig
+	EmojiConverter emoji.Converter
+	/*
+		EmojiURLFormat                 string
+		ActivityIncludeIntegrationName bool
+		UseAttachments                 bool // overrides other 'use' options
+		UseMarkdownQuote               bool
+		UseShortFields                 bool
+		UseFieldExtraSpacing           bool
+		ConvertTripleBacktick          bool
+	*/
 }
 
-func NewGlipMessageConverter() GlipMessageConverter {
+func NewGlipMessageConverter(cfg config.ConverterConfig) GlipMessageConverter {
+	cfg.ConvertTripleBacktick = true
 	return GlipMessageConverter{
-		ConvertTripleBacktick: true,
-		EmojiConverter:        emoji.NewConverter()}
+		Config:         cfg,
+		EmojiConverter: emoji.NewConverter()}
 }
 
 func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) glipwebhook.GlipWebhookMessage {
@@ -39,7 +44,7 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 	if len(commonMessage.IconURL) > 0 {
 		glip.Icon = commonMessage.IconURL
 	} else if len(commonMessage.IconEmoji) > 0 {
-		iconURL, err := cc.EmojiToURL(cv.EmojiURLFormat, commonMessage.IconEmoji)
+		iconURL, err := cc.EmojiToURL(cv.Config.EmojiURLFormat, commonMessage.IconEmoji)
 		if err == nil {
 			glip.Icon = iconURL
 		}
@@ -50,8 +55,8 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 	}
 
 	if len(commonMessage.Attachments) > 0 {
-		if cv.UseAttachments {
-			glip.Attachments = convertAttachments(&cv.EmojiConverter, cv.ConvertTripleBacktick, commonMessage.Attachments)
+		if cv.Config.UseAttachments {
+			glip.Attachments = convertAttachments(&cv.EmojiConverter, cv.Config.ConvertTripleBacktick, commonMessage.Attachments)
 		} else {
 			attachmentText := cv.renderAttachmentsAsMarkdown(commonMessage.Attachments)
 			if len(attachmentText) > 0 {
@@ -67,7 +72,7 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 }
 
 func (cv *GlipMessageConverter) getMarkdownBodyPrefix() string {
-	if cv.UseMarkdownQuote {
+	if cv.Config.UseMarkdownQuote {
 		return "> "
 	}
 	return ""
@@ -130,7 +135,7 @@ func (cv *GlipMessageConverter) renderAttachmentsAsMarkdown(attachments []cc.Att
 			lines = append(lines, fmt.Sprintf("%s%s", prefix, att.Text))
 		}
 		for _, field := range att.Fields {
-			if !cv.UseShortFields {
+			if !cv.Config.UseShortFields {
 				field.Short = false
 			}
 			if field.Short {
@@ -199,7 +204,7 @@ func (cv *GlipMessageConverter) buildMarkdownShortFieldLines(shortFields []cc.Fi
 }
 
 func (cv *GlipMessageConverter) appendEmptyLine(lines []string) []string {
-	if cv.UseFieldExtraSpacing {
+	if cv.Config.UseFieldExtraSpacing {
 		if len(lines) > 0 {
 			if len(lines[len(lines)-1]) > 0 {
 				lines = append(lines, "")
@@ -221,7 +226,7 @@ func (cv *GlipMessageConverter) RenderMessage(message cc.Message) string {
 */
 
 func (cv *GlipMessageConverter) integrationActivitySuffix(displayName string) string {
-	if cv.ActivityIncludeIntegrationName {
+	if cv.Config.ActivityIncludeIntegrationName {
 		return fmt.Sprintf(" (%v)", displayName)
 	}
 	return ""

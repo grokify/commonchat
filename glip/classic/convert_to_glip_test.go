@@ -1,4 +1,4 @@
-package glip
+package classic
 
 import (
 	"testing"
