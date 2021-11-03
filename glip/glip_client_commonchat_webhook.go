@@ -13,28 +13,6 @@ import (
 	"github.com/grokify/commonchat"
 )
 
-/*
-var (
-	AdaptersGlipActivityIncludeIntegrationName = false
-	AdaptersGlipMarkdownQuote                  = false
-	AdaptersGlipUseAttachments                 = true
-	AdaptersGlipUseShortFields                 = false
-	AdatpersGlipUseFieldExtraSpacing           = true
-	EmojiURLFormat                             = ""
-	WebhookURLOrUID                            = ""
-)
-
-type ConverterConfig struct {
-	EmojiURLFormat                 string
-	ActivityIncludeIntegrationName bool
-	UseAttachments                 bool // overrides other 'use' options
-	UseMarkdownQuote               bool
-	UseShortFields                 bool
-	UseFieldExtraSpacing           bool
-	ConvertTripleBacktick          bool
-}
-*/
-
 type GlipAdapter struct {
 	GlipClient      glipwebhook.GlipWebhookClient
 	CommonConverter classic.GlipMessageConverter
@@ -42,16 +20,15 @@ type GlipAdapter struct {
 	WebhookURLOrUID string
 }
 
-func NewGlipAdapter(webhookURLOrUID string, cfg config.ConverterConfig) (*GlipAdapter, error) {
+func NewGlipAdapter(webhookURLOrUID string, cfg *config.ConverterConfig) (*GlipAdapter, error) {
 	glip, err := glipwebhook.NewGlipWebhookClient(webhookURLOrUID)
-	converter := classic.NewGlipMessageConverter(cfg)
-	//converter.UseAttachments = cfg.UseAttachments
-	//converter.UseShortFields = cfg.UseShortFields
-	//converter.UseFieldExtraSpacing = AdatpersGlipUseFieldExtraSpacing
+	if err != nil {
+		return nil, err
+	}
 	return &GlipAdapter{
 		GlipClient:      glip,
 		WebhookURLOrUID: webhookURLOrUID,
-		CommonConverter: converter}, err
+		CommonConverter: classic.NewGlipMessageConverter(cfg)}, err
 }
 
 func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Message, glipmsg interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
@@ -60,9 +37,6 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Mess
 
 	glipMessageBytes, err := json.Marshal(glipMessage)
 	if err == nil {
-		//log.WithFields(log.Fields{
-		//	"event":   "outgoing.webhook.glip",
-		//	"handler": "Glip Adapter"}).Info(string(glipMessageBytes)) )
 		log.Info().
 			Str("event", "outgoing.webhook.glip").
 			Str("handler", "Glip Adapter").

@@ -10,8 +10,8 @@ type ConverterConfig struct {
 	ConvertTripleBacktick          bool
 }
 
-func DefaultConverterConfig() ConverterConfig {
-	return ConverterConfig{
+func DefaultConverterConfig() *ConverterConfig {
+	return &ConverterConfig{
 		UseAttachments:        true,
 		UseFieldExtraSpacing:  true,
 		ConvertTripleBacktick: true,

@@ -15,7 +15,7 @@ import (
 var rxTripleBackTick *regexp.Regexp = regexp.MustCompile(`(^|\n)` + "```([^`]*?)```" + `(\n|$)`)
 
 type GlipMessageConverter struct {
-	Config         config.ConverterConfig
+	Config         *config.ConverterConfig
 	EmojiConverter emoji.Converter
 	/*
 		EmojiURLFormat                 string
@@ -28,7 +28,10 @@ type GlipMessageConverter struct {
 	*/
 }
 
-func NewGlipMessageConverter(cfg config.ConverterConfig) GlipMessageConverter {
+func NewGlipMessageConverter(cfg *config.ConverterConfig) GlipMessageConverter {
+	if cfg == nil {
+		cfg = config.DefaultConverterConfig()
+	}
 	cfg.ConvertTripleBacktick = true
 	return GlipMessageConverter{
 		Config:         cfg,
