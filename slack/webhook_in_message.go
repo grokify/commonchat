@@ -1,6 +1,9 @@
 package slack
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"net/url"
+)
 
 type Message struct {
 	Attachments []Attachment `json:"attachments,omitempty"`
@@ -11,10 +14,18 @@ type Message struct {
 	Username    string       `json:"username,omitempty"`
 }
 
-func NewMessageFromBytes(bytes []byte) (Message, error) {
+func ParseMessageJSON(bytes []byte) (Message, error) {
 	msg := Message{}
 	err := json.Unmarshal(bytes, &msg)
 	return msg, err
+}
+
+func ParseMessageHttpBody(data []byte) (Message, error) {
+	qry, err := url.ParseQuery(string(data))
+	if err != nil {
+		return Message{}, err
+	}
+	return ParseMessageJSON([]byte(qry.Get("payload")))
 }
 
 type Attachment struct {
