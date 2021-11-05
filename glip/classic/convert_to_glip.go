@@ -5,11 +5,11 @@ import (
 	"regexp"
 	"strings"
 
-	cc "github.com/grokify/commonchat"
+	glipwebhook "github.com/grokify/go-glip"
 	"github.com/grokify/simplego/text/emoji"
 
+	cc "github.com/grokify/commonchat"
 	"github.com/grokify/commonchat/glip/config"
-	glipwebhook "github.com/grokify/go-glip"
 )
 
 var rxTripleBackTick *regexp.Regexp = regexp.MustCompile(`(^|\n)` + "```([^`]*?)```" + `(\n|$)`)
@@ -131,6 +131,7 @@ func (cv *GlipMessageConverter) renderAttachmentsAsMarkdown(attachments []cc.Att
 	prefix := cv.getMarkdownBodyPrefix()
 	shortFields := []cc.Field{}
 	for _, att := range attachments {
+		lines = append(lines, "")
 		if len(att.Title) > 0 {
 			lines = append(lines, fmt.Sprintf("%s**%s**", prefix, att.Title))
 		}
@@ -184,10 +185,10 @@ func (cv *GlipMessageConverter) buildMarkdownShortFieldLines(shortFields []cc.Fi
 			lines = cv.appendEmptyLine(lines)
 			field1 := shortFields[0]
 			field2 := shortFields[1]
-			if len(field2.Title) > 0 || len(field2.Title) > 0 {
+			if len(field1.Title) > 0 || len(field2.Title) > 0 {
 				lines = append(lines, fmt.Sprintf("%s| **%v** | **%v** |", prefix, field1.Title, field2.Title))
 			}
-			if len(field2.Value) > 0 || len(field2.Value) > 0 {
+			if len(field1.Value) > 0 || len(field2.Value) > 0 {
 				lines = append(lines, fmt.Sprintf("%s| %v | %v |", prefix, field1.Value, field2.Value))
 			}
 			shortFields = shortFields[2:]
