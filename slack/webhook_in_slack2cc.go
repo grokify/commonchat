@@ -9,7 +9,7 @@ func WebhookInBodySlackToCc(slMsg Message) cc.Message {
 	ccMsg := cc.Message{
 		Activity:    slMsg.Username,
 		Attachments: []cc.Attachment{},
-		Text:        slMsg.Text,
+		Text:        markdown.SkypeToMarkdown(slMsg.Text, true),
 		IconEmoji:   slMsg.IconEmoji,
 		IconURL:     slMsg.IconURL}
 	for _, slAtt := range slMsg.Attachments {
