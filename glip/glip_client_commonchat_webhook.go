@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/grokify/commonchat/glip/classic"
-	"github.com/grokify/commonchat/glip/config"
 	glipwebhook "github.com/grokify/go-glip"
 	"github.com/rs/zerolog/log"
 	"github.com/valyala/fasthttp"
 
 	"github.com/grokify/commonchat"
+	"github.com/grokify/commonchat/glip/classic"
+	"github.com/grokify/commonchat/glip/config"
 )
 
 type GlipAdapter struct {
@@ -43,7 +43,7 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Mess
 			Msg(string(glipMessageBytes))
 
 	}
-	if 1 == 1 {
+	if 1 == 0 {
 		fmt.Println(string(glipMessageBytes))
 		glipMessageJson, err := json.MarshalIndent(glipMessage, "", "  ")
 		if err != nil {
