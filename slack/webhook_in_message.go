@@ -6,6 +6,10 @@ import (
 	"strings"
 )
 
+const (
+	ParamNamePayload = "payload"
+)
+
 type Message struct {
 	Attachments []Attachment `json:"attachments,omitempty"`
 	IconEmoji   string       `json:"icon_emoji,omitempty"`
@@ -25,7 +29,11 @@ func ParseMessageURLEncoded(data []byte) (Message, error) {
 	if err != nil {
 		return Message{}, err
 	}
-	return ParseMessageJSON([]byte(qry.Get("payload")))
+	return ParseMessageURLValues(qry)
+}
+
+func ParseMessageURLValues(qry url.Values) (Message, error) {
+	return ParseMessageJSON([]byte(qry.Get(ParamNamePayload)))
 }
 
 func ParseMessageAny(data []byte) (Message, error) {
