@@ -21,13 +21,13 @@ type GlipAdapter struct {
 }
 
 func NewGlipAdapter(webhookURLOrUID string, cfg *config.ConverterConfig) (*GlipAdapter, error) {
-	glip, err := glipwebhook.NewGlipWebhookClient(webhookURLOrUID)
+	glip, err := glipwebhook.NewGlipWebhookClient(webhookURLOrUID, 1)
 	if err != nil {
 		return nil, err
 	}
 	return &GlipAdapter{
 		GlipClient:      glip,
-		WebhookURLOrUID: webhookURLOrUID,
+		WebhookURLOrUID: glip.WebhookUrl,
 		CommonConverter: classic.NewGlipMessageConverter(cfg)}, err
 }
 

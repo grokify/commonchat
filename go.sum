@@ -289,8 +289,9 @@ github.com/grokify/bitcoinmath v0.1.0 h1:NySFRW09cYQlTXrUw6QpjNgtrudC5QlgsqgXWWN
 github.com/grokify/bitcoinmath v0.1.0/go.mod h1:Y8OyDefB55NHGzi+uJshYmE4Hn5juIQqJahsQJN5o2k=
 github.com/grokify/elastirad-go v0.0.1/go.mod h1:aOLXJ4wcCMegyN6miRYoNCVXzUePE010nS2lFgn5p6Y=
 github.com/grokify/elastirad-go v0.1.2/go.mod h1:EKkozVVN3RkQ7neSu974z4BNSeuhRqPy9ZSGD13+P3A=
-github.com/grokify/go-glip v0.3.3 h1:qtMX+jczAgcLvGT0HxKC4n2NsK/gFv/OH6h0iZNQ+r0=
-github.com/grokify/go-glip v0.3.3/go.mod h1:9GzKv8C4sQugbRSEWntxSONAgN9OvjOXX4JJeE5DWZE=
+github.com/grokify/go-adaptivecards v0.3.0/go.mod h1:Ggn8gQWZZNSBPeME5YwQ2kJnCoZaletLvoXiI60+Xco=
+github.com/grokify/go-glip v0.4.0 h1:7gkdccm2kpoCcyjErlGeW1WrBeZ7+P3i9sCo+5MRoZc=
+github.com/grokify/go-glip v0.4.0/go.mod h1:9Yh55GRXQ3ubI/74N/+91Y1Gre5rB6sdooVhelL7Ajg=
 github.com/grokify/go-ringcentral-client v0.3.1/go.mod h1:f7qfDRxfLLlESDgimbDd1MsWP01VjwYuUqG2+PfIzW0=
 github.com/grokify/go-salesforce v0.1.7/go.mod h1:1wWpgaGq82kbhFjIWJBArkhrItL49g/Qd9G85w4fs/E=
 github.com/grokify/go-scim-client v0.0.2/go.mod h1:P5SXWB+N3dr7BO1lIBcOIafSb/jP/7By97RCQGzrN1Q=
@@ -307,7 +308,6 @@ github.com/grokify/simplego v0.30.0/go.mod h1:UKobvO2/X3aFy5fwNUxaW6YFK8A3IKCoIR
 github.com/grokify/simplego v0.30.2/go.mod h1:UKobvO2/X3aFy5fwNUxaW6YFK8A3IKCoIRqtVNhsdZU=
 github.com/grokify/simplego v0.30.6/go.mod h1:khOzEF+4r3PIi12Aq+psSPaylUdB2a8rnRlZh9IvtFI=
 github.com/grokify/simplego v0.30.13/go.mod h1:nCxSWlXyaehWEIq0ijdoziEH+5AaMTGItfBIBomIP4k=
-github.com/grokify/simplego v0.30.15/go.mod h1:6kmPzb/RUiRNlxd6/kh4KkUuiIFRy2NZzDxQGersaHo=
 github.com/grokify/simplego v0.30.16 h1:qaIId32DvuHHuwYGvdFNXYGLNxXYOl3OwgEbIW/xRNU=
 github.com/grokify/simplego v0.30.16/go.mod h1:6kmPzb/RUiRNlxd6/kh4KkUuiIFRy2NZzDxQGersaHo=
 github.com/grokify/spectrum v1.10.3/go.mod h1:ZUq/TmfWkRQY6G8XkmsviUJbL7bcSpKIVgWOflqAkTY=
