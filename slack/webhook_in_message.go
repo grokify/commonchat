@@ -17,8 +17,7 @@ type Message struct {
 
 func ParseMessageJSON(bytes []byte) (Message, error) {
 	msg := Message{}
-	err := json.Unmarshal(bytes, &msg)
-	return msg, err
+	return msg, json.Unmarshal(bytes, &msg)
 }
 
 func ParseMessageURLEncoded(data []byte) (Message, error) {
