@@ -21,7 +21,7 @@ func ParseMessageJSON(bytes []byte) (Message, error) {
 	return msg, err
 }
 
-func ParseMessageHttpBody(data []byte) (Message, error) {
+func ParseMessageURLEncoded(data []byte) (Message, error) {
 	qry, err := url.ParseQuery(string(data))
 	if err != nil {
 		return Message{}, err
@@ -33,7 +33,7 @@ func ParseMessageAny(data []byte) (Message, error) {
 	if strings.Index(strings.TrimSpace(string(data)), "{") == 0 {
 		return ParseMessageJSON(data)
 	}
-	return ParseMessageHttpBody(data)
+	return ParseMessageURLEncoded(data)
 }
 
 type Attachment struct {
