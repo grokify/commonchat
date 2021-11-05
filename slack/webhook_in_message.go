@@ -3,6 +3,7 @@ package slack
 import (
 	"encoding/json"
 	"net/url"
+	"strings"
 )
 
 type Message struct {
@@ -26,6 +27,13 @@ func ParseMessageHttpBody(data []byte) (Message, error) {
 		return Message{}, err
 	}
 	return ParseMessageJSON([]byte(qry.Get("payload")))
+}
+
+func ParseMessageAny(data []byte) (Message, error) {
+	if strings.Index(strings.TrimSpace(string(data)), "{") == 0 {
+		return ParseMessageJSON(data)
+	}
+	return ParseMessageHttpBody(data)
 }
 
 type Attachment struct {
