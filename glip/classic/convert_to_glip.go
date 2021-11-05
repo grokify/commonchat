@@ -7,6 +7,7 @@ import (
 
 	glipwebhook "github.com/grokify/go-glip"
 	"github.com/grokify/simplego/text/emoji"
+	"github.com/grokify/simplego/text/markdown"
 
 	cc "github.com/grokify/commonchat"
 	"github.com/grokify/commonchat/glip/config"
@@ -17,15 +18,6 @@ var rxTripleBackTick *regexp.Regexp = regexp.MustCompile(`(^|\n)` + "```([^`]*?)
 type GlipMessageConverter struct {
 	Config         *config.ConverterConfig
 	EmojiConverter emoji.Converter
-	/*
-		EmojiURLFormat                 string
-		ActivityIncludeIntegrationName bool
-		UseAttachments                 bool // overrides other 'use' options
-		UseMarkdownQuote               bool
-		UseShortFields                 bool
-		UseFieldExtraSpacing           bool
-		ConvertTripleBacktick          bool
-	*/
 }
 
 func NewGlipMessageConverter(cfg *config.ConverterConfig) GlipMessageConverter {
@@ -132,6 +124,10 @@ func (cv *GlipMessageConverter) renderAttachmentsAsMarkdown(attachments []cc.Att
 	shortFields := []cc.Field{}
 	for _, att := range attachments {
 		lines = append(lines, "")
+		if len(att.AuthorName) > 0 || len(strings.TrimSpace(att.AuthorLink)) > 0 {
+			lines = append(lines, fmt.Sprintf("%s%s", prefix,
+				markdown.Linkify(att.AuthorLink, att.AuthorName)))
+		}
 		if len(att.Title) > 0 {
 			lines = append(lines, fmt.Sprintf("%s**%s**", prefix, att.Title))
 		}
