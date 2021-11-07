@@ -48,16 +48,22 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Mess
 	glipmsg = &glipMessage
 
 	glipMessageBytes, err := json.Marshal(glipMessage)
-	if err == nil {
-		log.Info().
-			Str("event", "outgoing.webhook.glip").
-			Str("handler", "Glip Adapter").
-			Msg(string(glipMessageBytes))
+	if err != nil {
+		return nil, nil, err
 	}
+	log.Info().
+		Str("event", "outgoing.webhook.glip").
+		Str("handler", "Glip Adapter").
+		Msg(string(glipMessageBytes))
+
 	if len(cfg) == 0 {
 		return adapter.GlipClient.PostWebhookGUIDFast(urlOrUid, glipMessage)
 	}
-	thisAdapter, err := NewGlipAdapterMSI(adapter.WebhookURLOrUID, cfg)
+	newCfg, err := adapter.CommonConverter.Config.UpsertMSI(cfg)
+	if err != nil {
+		return nil, nil, err
+	}
+	thisAdapter, err := NewGlipAdapter(adapter.WebhookURLOrUID, newCfg)
 	if err != nil {
 		return nil, nil, err
 	}
