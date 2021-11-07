@@ -2,7 +2,6 @@ package glip
 
 import (
 	"encoding/json"
-	"fmt"
 
 	glipwebhook "github.com/grokify/go-glip"
 	"github.com/rs/zerolog/log"
@@ -31,7 +30,21 @@ func NewGlipAdapter(webhookURLOrUID string, cfg *config.ConverterConfig) (*GlipA
 		CommonConverter: classic.NewGlipMessageConverter(cfg)}, err
 }
 
-func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Message, glipmsg interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func NewGlipAdapterMSI(webhookURLOrUID string, cfg map[string]interface{}) (*GlipAdapter, error) {
+	ccfg, err := config.NewConverterConfigMSI(cfg)
+	if err != nil {
+		return nil, err
+	}
+	return NewGlipAdapter(webhookURLOrUID, ccfg)
+}
+
+func (adapter *GlipAdapter) Clone() (*GlipAdapter, error) {
+	return NewGlipAdapter(
+		adapter.WebhookURLOrUID,
+		adapter.CommonConverter.Config.Clone())
+}
+
+func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Message, glipmsg interface{}, cfg map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
 	glipMessage := adapter.CommonConverter.ConvertCommonMessage(message)
 	glipmsg = &glipMessage
 
@@ -41,21 +54,19 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Mess
 			Str("event", "outgoing.webhook.glip").
 			Str("handler", "Glip Adapter").
 			Msg(string(glipMessageBytes))
-
 	}
-	if 1 == 0 {
-		fmt.Println(string(glipMessageBytes))
-		glipMessageJson, err := json.MarshalIndent(glipMessage, "", "  ")
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println(string(glipMessageJson))
+	if len(cfg) == 0 {
+		return adapter.GlipClient.PostWebhookGUIDFast(urlOrUid, glipMessage)
 	}
-	return adapter.GlipClient.PostWebhookGUIDFast(urlOrUid, glipMessage)
+	thisAdapter, err := NewGlipAdapterMSI(adapter.WebhookURLOrUID, cfg)
+	if err != nil {
+		return nil, nil, err
+	}
+	return thisAdapter.GlipClient.PostWebhookGUIDFast(urlOrUid, glipMessage)
 }
 
-func (adapter *GlipAdapter) SendMessage(message commonchat.Message, glipmsg interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
-	return adapter.SendWebhook(adapter.WebhookURLOrUID, message, glipmsg)
+func (adapter *GlipAdapter) SendMessage(message commonchat.Message, glipmsg interface{}, opts map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+	return adapter.SendWebhook(adapter.WebhookURLOrUID, message, glipmsg, opts)
 }
 
 func (adapter *GlipAdapter) WebhookUID(ctx *fasthttp.RequestCtx) (string, error) {
