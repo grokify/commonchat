@@ -1,8 +1,6 @@
 package config
 
 import (
-	"encoding/json"
-
 	"github.com/grokify/simplego/encoding/jsonutil"
 )
 
@@ -19,18 +17,6 @@ type ConverterConfig struct {
 func NewConverterConfigMSI(cfg map[string]interface{}) (*ConverterConfig, error) {
 	ccfg := &ConverterConfig{}
 	return ccfg, jsonutil.UnmarshalMSI(cfg, ccfg)
-}
-
-func UnmarshalMSI(cfg map[string]interface{}) (*ConverterConfig, error) {
-	if len(cfg) == 0 {
-		return nil, nil
-	}
-	bytes, err := json.Marshal(cfg)
-	if err != nil {
-		return nil, err
-	}
-	ccfg := &ConverterConfig{}
-	return ccfg, json.Unmarshal(bytes, ccfg)
 }
 
 func DefaultConverterConfig() *ConverterConfig {

@@ -15,7 +15,6 @@ import (
 type GlipAdapter struct {
 	GlipClient      glipwebhook.GlipWebhookClient
 	CommonConverter classic.GlipMessageConverter
-	EmojiURLFormat  string
 	WebhookURLOrUID string
 }
 
