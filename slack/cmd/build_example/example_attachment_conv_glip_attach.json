@@ -1,0 +1,33 @@
+{
+  "icon": "https://i.imgur.com/9yILi61.png",
+  "activity": "Username of the post ♠♥♣♦",
+  "body": "Text of the post ♠♥♣♦",
+  "attachments": [
+    {
+      "card": "Card",
+      "color": "#00ff2a",
+      "pretext": "Attachment.Pretext ♠♥♣♦",
+      "author_name": "Attachment.AuthorName ♠♥♣♦",
+      "author_link": "https://example.com/author_link",
+      "author_icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/000080_Navy_Blue_Square.svg/1200px-000080_Navy_Blue_Square.svg.png",
+      "title": "Attachment.Title ♠♥♣♦",
+      "fields": [
+        {
+          "title": "Field 1 ♠♥♣♦",
+          "value": "A short field ♠♥♣♦",
+          "short": true
+        },
+        {
+          "title": "Field 2",
+          "value": "This is [a linked short field](https://example.com)",
+          "short": true
+        },
+        {
+          "title": "Field 3 ♠♥♣♦",
+          "value": "A long, full-width field with *formatting* and [a link](https://example.com) \n\n ♠♥♣♦"
+        }
+      ],
+      "text": "Attachment.Text ♠♥♣♦"
+    }
+  ]
+}

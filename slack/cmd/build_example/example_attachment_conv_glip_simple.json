@@ -1,0 +1,5 @@
+{
+  "icon": "https://i.imgur.com/9yILi61.png",
+  "activity": "Username of the post ♠♥♣♦",
+  "body": "Text of the post ♠♥♣♦\n\n[Attachment.AuthorName ♠♥♣♦](https://example.com/author_link)\n**Attachment.Title ♠♥♣♦**\nAttachment.Text ♠♥♣♦\n\n**Field 1 ♠♥♣♦**\nA short field ♠♥♣♦\n\n**Field 2**\nThis is [a linked short field](https://example.com)\n\n**Field 3 ♠♥♣♦**\nA long, full-width field with *formatting* and [a link](https://example.com) \n\n ♠♥♣♦"
+}
