@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	glipwebhook "github.com/grokify/go-glip"
-	"github.com/grokify/simplego/text/emoji"
-	"github.com/grokify/simplego/text/markdown"
+	"github.com/grokify/mogo/text/emoji"
+	"github.com/grokify/mogo/text/markdown"
 
 	cc "github.com/grokify/commonchat"
 	"github.com/grokify/commonchat/glip/config"

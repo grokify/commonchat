@@ -8,7 +8,7 @@ import (
 	"github.com/grokify/commonchat/glip"
 	"github.com/grokify/commonchat/glip/config"
 	glipwebhook "github.com/grokify/go-glip"
-	"github.com/grokify/simplego/fmt/fmtutil"
+	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/jessevdk/go-flags"
 	"github.com/valyala/fasthttp"
 )

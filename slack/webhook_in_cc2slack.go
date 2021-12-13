@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	cc "github.com/grokify/commonchat"
-	"github.com/grokify/simplego/fmt/fmtutil"
+	"github.com/grokify/mogo/fmt/fmtutil"
 )
 
 func ConvertCommonMessage(ccMsg cc.Message) Message {

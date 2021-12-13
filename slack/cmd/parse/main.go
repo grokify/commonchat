@@ -6,8 +6,8 @@ import (
 
 	"github.com/grokify/commonchat/slack"
 	gitlab "github.com/grokify/gowebhooks/gitlab.com"
-	"github.com/grokify/simplego/fmt/fmtutil"
-	"github.com/grokify/simplego/text/markdown"
+	"github.com/grokify/mogo/fmt/fmtutil"
+	"github.com/grokify/mogo/text/markdown"
 )
 
 func main() {
@@ -43,7 +43,7 @@ import (
 	"log"
 	"net/url"
 
-	"github.com/grokify/simplego/text/markdown"
+	"github.com/grokify/mogo/text/markdown"
 )
 */
 /*

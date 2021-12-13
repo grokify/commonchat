@@ -9,7 +9,7 @@ import (
 	"github.com/grokify/commonchat/glip/classic"
 	"github.com/grokify/commonchat/glip/config"
 	"github.com/grokify/commonchat/slack"
-	"github.com/grokify/simplego/fmt/fmtutil"
+	"github.com/grokify/mogo/fmt/fmtutil"
 )
 
 const (
