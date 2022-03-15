@@ -27,7 +27,7 @@ func main() {
 	cfg.UseAttachments = true
 
 	adapt := glip.NewGlipAdapter("", cfg)
-	fmtutil.PrintJSON(adapt.CommonConverter.Config)
+	fmtutil.MustPrintJSON(adapt.CommonConverter.Config)
 
 	msi := map[string]interface{}{"useAttachments": false}
 

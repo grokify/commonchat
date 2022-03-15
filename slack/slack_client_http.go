@@ -23,24 +23,24 @@ const (
 )
 
 type SlackWebhookClient struct {
-	HttpClient *http.Client
+	HTTPClient *http.Client
 	FastClient *fasthttp.Client
-	WebhookUrl string
-	UrlPrefix  *regexp.Regexp
+	WebhookURL string
+	URLPrefix  *regexp.Regexp
 }
 
-func NewSlackWebhookClient(urlOrUid string, clientType ClientType) (SlackWebhookClient, error) {
+func NewSlackWebhookClient(urlOrUID string, clientType ClientType) (SlackWebhookClient, error) {
 	log.Debug().
 		Str("lib", "slack_client.go").
-		Str("request_url_client_init", urlOrUid).
+		Str("request_url_client_init", urlOrUID).
 		Msg("NewSlackWebhookClient init")
 
-	client := SlackWebhookClient{UrlPrefix: regexp.MustCompile(`^https:`)}
-	client.WebhookUrl = client.BuildWebhookURL(urlOrUid)
+	client := SlackWebhookClient{URLPrefix: regexp.MustCompile(`^https:`)}
+	client.WebhookURL = client.BuildWebhookURL(urlOrUID)
 	if clientType == FastHTTP {
 		client.FastClient = &fasthttp.Client{}
 	} else {
-		client.HttpClient = httputilmore.NewHTTPClient()
+		client.HTTPClient = httputilmore.NewHTTPClient()
 	}
 	return client, nil
 }

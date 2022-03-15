@@ -18,7 +18,7 @@ type CreatePostRequest struct {
 	ReplyBroadcast bool    `json:"reply_broadcast,omitempty"`
 	UnfurlLinks    bool    `json:"unfurl_links,omitempty"`
 	UnfurlMedia    bool    `json:"unfurl_media,omitempty"`
-	ThreadTs       float64 `json:"thread_ts,omitempty"`
+	ThreadTS       float64 `json:"thread_ts,omitempty"`
 }
 
 type WebhookRequest struct {
