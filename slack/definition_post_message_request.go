@@ -12,7 +12,7 @@ type CommonPost struct {
 type CreatePostRequest struct {
 	CommonPost
 	AsUser         bool    `json:"as_user,omitempty"`
-	IconUrl        string  `json:"icon_url,omitempty"`
+	IconURL        string  `json:"icon_url,omitempty"`
 	LinkNames      bool    `json:"link_names,omitempty"`
 	Parse          bool    `json:"parse,omitempty"`
 	ReplyBroadcast bool    `json:"reply_broadcast,omitempty"`

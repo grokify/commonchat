@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/grokify/commonchat/glip/classic"
@@ -23,26 +22,25 @@ const (
 func main() {
 	qry := slack.ExampleMessageAttachmentURLValues()
 	err := os.WriteFile(filenameSlackOrig, []byte(qry.Encode()), 0600)
-	if err != nil {
-		log.Fatal(err)
-	}
+	logutil.FatalErr(err)
 
 	slMsg, err := slack.ParseMessageURLValues(qry)
-	if err != nil {
-		log.Fatal(err)
-	}
+	logutil.FatalErr(err)
+
 	fmt.Println("SLMSG")
-	fmtutil.PrintJSON(slMsg)
+	fmtutil.MustPrintJSON(slMsg)
+
 	ccMsg := slack.WebhookInBodySlackToCc(slMsg)
 	fmt.Println("CCMSG")
-	fmtutil.PrintJSON(ccMsg)
+	fmtutil.MustPrintJSON(ccMsg)
 
 	glCfg := config.DefaultConverterConfig()
 	glCfg.UseAttachments = false
 	glConv := classic.NewGlipMessageConverter(glCfg)
 	glMsg := glConv.ConvertCommonMessage(ccMsg)
 	fmt.Println("GLMSG_SIMP")
-	fmtutil.PrintJSON(glMsg)
+	fmtutil.MustPrintJSON(glMsg)
+
 	glJson, err := json.MarshalIndent(glMsg, "", "  ")
 	logutil.FatalErr(err)
 
@@ -54,10 +52,11 @@ func main() {
 	glMsg2 := glConv2.ConvertCommonMessage(ccMsg)
 	fmt.Println("GLMSG_SIMP")
 	fmtutil.MustPrintJSON(glMsg)
+
 	glJson2, err := json.MarshalIndent(glMsg2, "", "  ")
 	logutil.FatalErr(err)
 
-	err = os.WriteFile(filenameGlipAttachJSON, []byte(glJson2), 0600)
+	err = os.WriteFile(filenameGlipAttachJSON, glJson2, 0600)
 	logutil.FatalErr(err)
 
 	fmt.Println("DONE")
