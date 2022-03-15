@@ -27,15 +27,12 @@ func main() {
 	cfg := config.DefaultConverterConfig()
 	cfg.UseAttachments = true
 
-	ad, err := glip.NewGlipAdapter("", cfg)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmtutil.PrintJSON(ad.CommonConverter.Config)
+	adapt := glip.NewGlipAdapter("", cfg)
+	fmtutil.PrintJSON(adapt.CommonConverter.Config)
 
 	msi := map[string]interface{}{"useAttachments": false}
 
-	cfg2, err := ad.CommonConverter.Config.UpsertMSI(msi)
+	cfg2, err := adapt.CommonConverter.Config.UpsertMSI(msi)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,7 +42,7 @@ func main() {
 
 	msg := examples.ExampleHookBodyAttachment()
 
-	req, res, err := ad.SendWebhook(opts.URL, msg, glMsg, map[string]interface{}{})
+	req, res, err := adapt.SendWebhook(opts.URL, msg, glMsg, map[string]interface{}{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -53,7 +50,7 @@ func main() {
 	fasthttp.ReleaseResponse(res)
 
 	if 1 == 1 {
-		req, res, err := ad.SendWebhook(opts.URL, msg, glMsg,
+		req, res, err := adapt.SendWebhook(opts.URL, msg, glMsg,
 			map[string]interface{}{"useAttachments": false})
 		if err != nil {
 			log.Fatal(err)

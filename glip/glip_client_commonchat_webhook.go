@@ -18,15 +18,12 @@ type GlipAdapter struct {
 	WebhookURLOrUID string
 }
 
-func NewGlipAdapter(webhookURLOrUID string, cfg *config.ConverterConfig) (*GlipAdapter, error) {
-	glip, err := glipwebhook.NewGlipWebhookClient(webhookURLOrUID, 1)
-	if err != nil {
-		return nil, err
-	}
+func NewGlipAdapter(webhookURLOrUID string, cfg *config.ConverterConfig) *GlipAdapter {
+	glip := glipwebhook.NewGlipWebhookClient(webhookURLOrUID, 1)
 	return &GlipAdapter{
 		GlipClient:      glip,
-		WebhookURLOrUID: glip.WebhookUrl,
-		CommonConverter: classic.NewGlipMessageConverter(cfg)}, err
+		WebhookURLOrUID: glip.WebhookURL,
+		CommonConverter: classic.NewGlipMessageConverter(cfg)}
 }
 
 func NewGlipAdapterMSI(webhookURLOrUID string, cfg map[string]interface{}) (*GlipAdapter, error) {
@@ -34,10 +31,10 @@ func NewGlipAdapterMSI(webhookURLOrUID string, cfg map[string]interface{}) (*Gli
 	if err != nil {
 		return nil, err
 	}
-	return NewGlipAdapter(webhookURLOrUID, ccfg)
+	return NewGlipAdapter(webhookURLOrUID, ccfg), nil
 }
 
-func (adapter *GlipAdapter) Clone() (*GlipAdapter, error) {
+func (adapter *GlipAdapter) Clone() *GlipAdapter {
 	return NewGlipAdapter(
 		adapter.WebhookURLOrUID,
 		adapter.CommonConverter.Config.Clone())
@@ -49,10 +46,7 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Mess
 		if err != nil {
 			return nil, nil, err
 		}
-		thisAdapter, err := NewGlipAdapter(adapter.WebhookURLOrUID, newCfg)
-		if err != nil {
-			return nil, nil, err
-		}
+		thisAdapter := NewGlipAdapter(adapter.WebhookURLOrUID, newCfg)
 		return thisAdapter.SendWebhook(urlOrUid, message, glipmsg, map[string]interface{}{})
 	}
 	glipMessage := adapter.CommonConverter.ConvertCommonMessage(message)

@@ -40,7 +40,7 @@ func NewSlackWebhookClient(urlOrUid string, clientType ClientType) (SlackWebhook
 	if clientType == FastHTTP {
 		client.FastClient = fasthttp.Client{}
 	} else {
-		client.HttpClient = httputilmore.NewHttpClient()
+		client.HttpClient = httputilmore.NewHTTPClient()
 	}
 	return client, nil
 }
@@ -71,7 +71,7 @@ func (client *SlackWebhookClient) PostWebhookFast(url string, message Message) (
 	req.Header.SetMethod(http.MethodPost)
 	req.Header.SetRequestURI(url)
 
-	req.Header.Set(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJsonUtf8)
+	req.Header.Set(httputilmore.HeaderContentType, httputilmore.ContentTypeAppJSONUtf8)
 
 	err = client.FastClient.Do(req, resp)
 	return req, resp, err
