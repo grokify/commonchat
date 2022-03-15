@@ -14,9 +14,9 @@ import (
 
 const (
 	filenameSlackOrig      = "example_attachment_orig_slack.txt"
-	filenameSlackJSON      = "example_attachment_orig_slack_sp2.json"
 	filenameGlipSimpleJSON = "example_attachment_conv_glip_simple.json"
 	filenameGlipAttachJSON = "example_attachment_conv_glip_attach.json"
+	// filenameSlackJSON      = "example_attachment_orig_slack_sp2.json"
 )
 
 func main() {
@@ -41,10 +41,10 @@ func main() {
 	fmt.Println("GLMSG_SIMP")
 	fmtutil.MustPrintJSON(glMsg)
 
-	glJson, err := json.MarshalIndent(glMsg, "", "  ")
+	glJSON, err := json.MarshalIndent(glMsg, "", "  ")
 	logutil.FatalErr(err)
 
-	err = os.WriteFile(filenameGlipSimpleJSON, glJson, 0600)
+	err = os.WriteFile(filenameGlipSimpleJSON, glJSON, 0600)
 	logutil.FatalErr(err)
 
 	glCfg.UseAttachments = true
@@ -53,10 +53,10 @@ func main() {
 	fmt.Println("GLMSG_SIMP")
 	fmtutil.MustPrintJSON(glMsg)
 
-	glJson2, err := json.MarshalIndent(glMsg2, "", "  ")
+	glJSON2, err := json.MarshalIndent(glMsg2, "", "  ")
 	logutil.FatalErr(err)
 
-	err = os.WriteFile(filenameGlipAttachJSON, glJson2, 0600)
+	err = os.WriteFile(filenameGlipAttachJSON, glJSON2, 0600)
 	logutil.FatalErr(err)
 
 	fmt.Println("DONE")
