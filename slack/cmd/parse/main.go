@@ -2,25 +2,22 @@ package main
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/grokify/commonchat/slack"
 	gitlab "github.com/grokify/gowebhooks/gitlab.com"
 	"github.com/grokify/mogo/fmt/fmtutil"
+	"github.com/grokify/mogo/log/logutil"
 	"github.com/grokify/mogo/text/markdown"
 )
 
 func main() {
 	data, err := gitlab.ReadExampleFile("event-example_push_slack.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmtutil.PrintJSON(data)
+	logutil.FatalErr(err)
+
+	fmtutil.MustPrintJSON(data)
 
 	slMsg, err := slack.ParseMessageURLEncoded(data)
-	if err != nil {
-		log.Fatal(err)
-	}
+	logutil.FatalErr(err)
 
 	fmt.Println("\n\n" + slMsg.Text)
 
@@ -29,7 +26,7 @@ func main() {
 	fmt.Println("\n\n[" + mkdn + "]\n")
 
 	ccMsg := slack.WebhookInBodySlackToCc(slMsg)
-	fmtutil.PrintJSON(ccMsg)
+	fmtutil.MustPrintJSON(ccMsg)
 
 	fmt.Println("DONE")
 }

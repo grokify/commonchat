@@ -21,7 +21,7 @@ const (
 
 func main() {
 	qry := slack.ExampleMessageAttachmentURLValues()
-	err := os.WriteFile(filenameSlackOrig, []byte(qry.Encode()), 0644)
+	err := os.WriteFile(filenameSlackOrig, []byte(qry.Encode()), 0600)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -46,7 +46,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = os.WriteFile(filenameGlipSimpleJSON, []byte(glJson), 0644)
+	err = os.WriteFile(filenameGlipSimpleJSON, []byte(glJson), 0600)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = os.WriteFile(filenameGlipAttachJSON, []byte(glJson2), 0644)
+	err = os.WriteFile(filenameGlipAttachJSON, []byte(glJson2), 0600)
 	if err != nil {
 		log.Fatal(err)
 	}

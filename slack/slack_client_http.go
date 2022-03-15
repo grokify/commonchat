@@ -24,7 +24,7 @@ const (
 
 type SlackWebhookClient struct {
 	HttpClient *http.Client
-	FastClient fasthttp.Client
+	FastClient *fasthttp.Client
 	WebhookUrl string
 	UrlPrefix  *regexp.Regexp
 }
@@ -38,7 +38,7 @@ func NewSlackWebhookClient(urlOrUid string, clientType ClientType) (SlackWebhook
 	client := SlackWebhookClient{UrlPrefix: regexp.MustCompile(`^https:`)}
 	client.WebhookUrl = client.BuildWebhookURL(urlOrUid)
 	if clientType == FastHTTP {
-		client.FastClient = fasthttp.Client{}
+		client.FastClient = &fasthttp.Client{}
 	} else {
 		client.HttpClient = httputilmore.NewHTTPClient()
 	}

@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	cc "github.com/grokify/commonchat"
-	"github.com/grokify/mogo/fmt/fmtutil"
 )
 
 func ConvertCommonMessage(ccMsg cc.Message) Message {
@@ -30,7 +29,6 @@ func ConvertCommonMessage(ccMsg cc.Message) Message {
 		text = ConvertMarkdownSlack(text)
 		slackMessage.Text = text
 	}
-	fmtutil.PrintJSON(slackMessage)
 	return slackMessage
 }
 
