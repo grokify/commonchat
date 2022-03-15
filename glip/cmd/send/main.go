@@ -9,6 +9,7 @@ import (
 	"github.com/grokify/commonchat/glip/config"
 	glipwebhook "github.com/grokify/go-glip"
 	"github.com/grokify/mogo/fmt/fmtutil"
+	"github.com/grokify/mogo/log/logutil"
 	"github.com/jessevdk/go-flags"
 	"github.com/valyala/fasthttp"
 )
@@ -20,9 +21,7 @@ type Options struct {
 func main() {
 	opts := Options{}
 	_, err := flags.Parse(&opts)
-	if err != nil {
-		log.Fatal(err)
-	}
+	logutil.FatalErr(err)
 
 	cfg := config.DefaultConverterConfig()
 	cfg.UseAttachments = true
@@ -33,31 +32,26 @@ func main() {
 	msi := map[string]interface{}{"useAttachments": false}
 
 	cfg2, err := adapt.CommonConverter.Config.UpsertMSI(msi)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmtutil.PrintJSON(cfg2)
+	logutil.FatalErr(err)
+	fmtutil.MustPrintJSON(cfg2)
 
 	glMsg := &glipwebhook.GlipWebhookMessage{}
 
 	msg := examples.ExampleHookBodyAttachment()
 
 	req, res, err := adapt.SendWebhook(opts.URL, msg, glMsg, map[string]interface{}{})
+	logutil.FatalErr(err)
+
+	fasthttp.ReleaseRequest(req)
+	fasthttp.ReleaseResponse(res)
+
+	req, res, err = adapt.SendWebhook(opts.URL, msg, glMsg,
+		map[string]interface{}{"useAttachments": false})
 	if err != nil {
 		log.Fatal(err)
 	}
 	fasthttp.ReleaseRequest(req)
 	fasthttp.ReleaseResponse(res)
-
-	if 1 == 1 {
-		req, res, err := adapt.SendWebhook(opts.URL, msg, glMsg,
-			map[string]interface{}{"useAttachments": false})
-		if err != nil {
-			log.Fatal(err)
-		}
-		fasthttp.ReleaseRequest(req)
-		fasthttp.ReleaseResponse(res)
-	}
 
 	fmt.Println("DONE")
 }

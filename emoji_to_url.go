@@ -19,5 +19,5 @@ func EmojiToURL(urlFormat string, emoji string) (string, error) {
 			return fmt.Sprintf(urlFormat, rs[1]), nil
 		}
 	}
-	return "", errors.New("No Emoji")
+	return "", errors.New("no emoji")
 }

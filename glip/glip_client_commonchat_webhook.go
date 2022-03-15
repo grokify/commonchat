@@ -40,14 +40,14 @@ func (adapter *GlipAdapter) Clone() *GlipAdapter {
 		adapter.CommonConverter.Config.Clone())
 }
 
-func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Message, glipmsg interface{}, cfg map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func (adapter *GlipAdapter) SendWebhook(urlOrUID string, message commonchat.Message, glipmsg interface{}, cfg map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
 	if len(cfg) > 0 {
 		newCfg, err := adapter.CommonConverter.Config.UpsertMSI(cfg)
 		if err != nil {
 			return nil, nil, err
 		}
 		thisAdapter := NewGlipAdapter(adapter.WebhookURLOrUID, newCfg)
-		return thisAdapter.SendWebhook(urlOrUid, message, glipmsg, map[string]interface{}{})
+		return thisAdapter.SendWebhook(urlOrUID, message, glipmsg, map[string]interface{}{})
 	}
 	glipMessage := adapter.CommonConverter.ConvertCommonMessage(message)
 	glipmsg = &glipMessage
@@ -60,7 +60,7 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUid string, message commonchat.Mess
 		Str("event", "outgoing.webhook.glip").
 		Str("handler", "Glip Adapter").
 		Msg(string(glipMessageBytes))
-	return adapter.GlipClient.PostWebhookGUIDFast(urlOrUid, glipMessage)
+	return adapter.GlipClient.PostWebhookGUIDFast(urlOrUID, glipMessage)
 }
 
 func (adapter *GlipAdapter) SendMessage(message commonchat.Message, glipmsg interface{}, opts map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {

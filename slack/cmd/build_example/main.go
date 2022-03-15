@@ -10,6 +10,7 @@ import (
 	"github.com/grokify/commonchat/glip/config"
 	"github.com/grokify/commonchat/slack"
 	"github.com/grokify/mogo/fmt/fmtutil"
+	"github.com/grokify/mogo/log/logutil"
 )
 
 const (
@@ -43,27 +44,21 @@ func main() {
 	fmt.Println("GLMSG_SIMP")
 	fmtutil.PrintJSON(glMsg)
 	glJson, err := json.MarshalIndent(glMsg, "", "  ")
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = os.WriteFile(filenameGlipSimpleJSON, []byte(glJson), 0600)
-	if err != nil {
-		log.Fatal(err)
-	}
+	logutil.FatalErr(err)
+
+	err = os.WriteFile(filenameGlipSimpleJSON, glJson, 0600)
+	logutil.FatalErr(err)
 
 	glCfg.UseAttachments = true
 	glConv2 := classic.NewGlipMessageConverter(glCfg)
 	glMsg2 := glConv2.ConvertCommonMessage(ccMsg)
 	fmt.Println("GLMSG_SIMP")
-	fmtutil.PrintJSON(glMsg)
+	fmtutil.MustPrintJSON(glMsg)
 	glJson2, err := json.MarshalIndent(glMsg2, "", "  ")
-	if err != nil {
-		log.Fatal(err)
-	}
+	logutil.FatalErr(err)
+
 	err = os.WriteFile(filenameGlipAttachJSON, []byte(glJson2), 0600)
-	if err != nil {
-		log.Fatal(err)
-	}
+	logutil.FatalErr(err)
 
 	fmt.Println("DONE")
 }

@@ -30,7 +30,7 @@ var EmojiErrorTests = []struct {
 	v2   string
 	want string
 }{
-	{"%s", ":ghXst:", "No Emoji"}}
+	{"%s", ":ghXst:", "no emoji"}}
 
 func TestEmojiURLError(t *testing.T) {
 	for _, tt := range EmojiErrorTests {
