@@ -16,6 +16,6 @@ issues:
     - path: glip/glip_client_commonchat_webhook.go
       text: "ineffectual assignment to glipmsg"
     - path: slack/slack_client_commonchat_webhook.go
-      text: "ineffectual assignment to slackmsg"
+      text: "assignment to slackmsg"
     - path: slack/slack_client_commonchat_webhook.go
       text: "argument slackmsg is overwritten before first use"
