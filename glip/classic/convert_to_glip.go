@@ -35,6 +35,9 @@ func (cv *GlipMessageConverter) ConvertCommonMessage(commonMessage cc.Message) g
 		Activity: cv.EmojiConverter.ConvertShortcodesString(commonMessage.Activity, emoji.Unicode),
 		Title:    cv.EmojiConverter.ConvertShortcodesString(commonMessage.Title, emoji.Unicode),
 		Icon:     commonMessage.IconURL}
+	if cv.Config.ActivityIncludeIntegrationName {
+		glip.Activity += cv.integrationActivitySuffix(cv.Config.IntegrationName)
+	}
 
 	if len(commonMessage.IconURL) > 0 {
 		glip.Icon = commonMessage.IconURL
@@ -226,7 +229,8 @@ func (cv *GlipMessageConverter) RenderMessage(message cc.Message) string {
 */
 
 func (cv *GlipMessageConverter) integrationActivitySuffix(displayName string) string {
-	if cv.Config.ActivityIncludeIntegrationName {
+	displayName = strings.TrimSpace(displayName)
+	if len(displayName) > 0 {
 		return fmt.Sprintf(" (%v)", displayName)
 	}
 	return ""

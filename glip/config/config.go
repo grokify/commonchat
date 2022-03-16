@@ -20,6 +20,7 @@ const (
 
 type ConverterConfig struct {
 	EmojiURLFormat                 string `json:"emojiURLFormat,omitempty"`
+	IntegrationName                string `json:"integrationName,omitempty"`
 	ActivityIncludeIntegrationName bool   `json:"activityIncludeIntegrationName,omitempty"`
 	UseAttachments                 bool   `json:"useAttachments,omitempty"`
 	UseMarkdownQuote               bool   `json:"useMarkdownQuote,omitempty"`
