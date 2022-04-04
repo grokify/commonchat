@@ -10,7 +10,7 @@ import (
 	glipwebhook "github.com/grokify/go-glip"
 	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/grokify/mogo/log/logutil"
-	"github.com/jessevdk/go-flags"
+	flags "github.com/jessevdk/go-flags"
 	"github.com/valyala/fasthttp"
 )
 
