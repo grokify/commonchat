@@ -8,5 +8,5 @@ require (
 	github.com/grokify/mogo v0.37.17
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/rs/zerolog v1.26.1
-	github.com/valyala/fasthttp v1.34.0
+	github.com/valyala/fasthttp v1.35.0
 )
