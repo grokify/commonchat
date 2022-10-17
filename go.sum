@@ -21,8 +21,8 @@ github.com/grokify/go-glip v0.5.3 h1:tAX46CHefL4uTjT9+hn1eQ1+w1WGfGjgnQUoFyFEcTU
 github.com/grokify/go-glip v0.5.3/go.mod h1:UV51kp2p/R4T9TUL1b4vsm62J30/VEeyjpGzr0YHaZE=
 github.com/grokify/gowebhooks v0.1.0 h1:xRuI299IiG8oSEmbYLJ7sDR5YPIypIKSnfhERwFvva0=
 github.com/grokify/gowebhooks v0.1.0/go.mod h1:eHFJFyNVXDS5QPoh6XHjxbnPXHsjvILTiH+k2ZeX86U=
-github.com/grokify/mogo v0.40.4 h1:IDGRHgRj5eaCsl6na0++xLikRsAgTIpf0cTt49du7fY=
-github.com/grokify/mogo v0.40.4/go.mod h1:tBcnsGpXsAgHo2p5muSoisCNO+GBKPqJ8sW88TEqd3U=
+github.com/grokify/mogo v0.40.5 h1:JmNpy8QCRo6/qLU24HY0kItz9GKrh6bLXGzwdeeidCY=
+github.com/grokify/mogo v0.40.5/go.mod h1:w5vteZTH3+nlVdnCP4NDEeGiuXnx/ASDCsTp2EkmJFU=
 github.com/huandu/xstrings v1.3.2 h1:L18LIDzqlW6xN2rEkpdV8+oL/IXWJ1APd+vsdYy4Wdw=
 github.com/huandu/xstrings v1.3.2/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=
 github.com/jessevdk/go-flags v1.5.0 h1:1jKYvbxEjfUl0fmqTCOfonvskHHXMjBySTLW4y9LFvc=
@@ -82,7 +82,8 @@ golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9sn
 golang.org/x/term v0.0.0-20210927222741-03fcf44c2211/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
 golang.org/x/text v0.3.3/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
 golang.org/x/text v0.3.6/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
-golang.org/x/text v0.3.7 h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=
 golang.org/x/text v0.3.7/go.mod h1:u+2+/6zg+i71rQMx5EYifcz6MCKuco9NR6JIITiCfzQ=
+golang.org/x/text v0.3.8 h1:nAL+RVCQ9uMn3vJZbV+MRnydTJFPf8qqY42YiA6MrqY=
+golang.org/x/text v0.3.8/go.mod h1:E6s5w1FMmriuDzIBO73fBruAKo1PCIq6d2Q6DHfQ8WQ=
 golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
 golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
