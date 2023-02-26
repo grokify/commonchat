@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/url"
 	"strings"
+
+	"github.com/grokify/mogo/encoding/jsonutil"
 )
 
 const (
@@ -58,7 +60,7 @@ type Attachment struct {
 }
 
 type Field struct {
-	Title string `json:"title,omitempty"`
-	Value string `json:"value,omitempty"`
-	Short bool   `json:"short,omitempty"`
+	Title string          `json:"title,omitempty"`
+	Value jsonutil.String `json:"value,omitempty"`
+	Short bool            `json:"short,omitempty"`
 }

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	cc "github.com/grokify/commonchat"
+	"github.com/grokify/mogo/encoding/jsonutil"
 )
 
 func ConvertCommonMessage(ccMsg cc.Message) Message {
@@ -72,7 +73,7 @@ func ConvertFieldsSlack(commonFields []cc.Field) []Field {
 func ConvertFieldSlack(commonField cc.Field) Field {
 	slackField := Field{
 		Title: ConvertMarkdownSlack(commonField.Title),
-		Value: ConvertMarkdownSlack(commonField.Value),
+		Value: jsonutil.String(ConvertMarkdownSlack(commonField.Value)),
 		Short: commonField.Short}
 	return slackField
 }

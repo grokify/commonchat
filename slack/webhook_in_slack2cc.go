@@ -42,6 +42,6 @@ func fieldSlackToCc(slField Field) cc.Field {
 	ccField := cc.Field{
 		Short: slField.Short,
 		Title: slField.Title,
-		Value: markdown.SkypeToMarkdown(slField.Value, true)}
+		Value: markdown.SkypeToMarkdown(string(slField.Value), true)}
 	return ccField
 }
