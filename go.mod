@@ -8,7 +8,7 @@ require (
 	github.com/grokify/mogo v0.49.1
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/rs/zerolog v1.29.0
-	github.com/valyala/fasthttp v1.44.0
+	github.com/valyala/fasthttp v1.45.0
 )
 
 require (
@@ -19,7 +19,7 @@ require (
 	github.com/grokify/bitcoinmath v0.1.0 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.16.0 // indirect
+	github.com/klauspost/compress v1.16.3 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
