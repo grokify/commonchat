@@ -20,8 +20,8 @@ github.com/google/go-querystring v1.1.0/go.mod h1:Kcdr2DB4koayq7X8pmAG4sNG59So17
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/grokify/bitcoinmath v0.1.0 h1:NySFRW09cYQlTXrUw6QpjNgtrudC5QlgsqgXWWNN+50=
 github.com/grokify/bitcoinmath v0.1.0/go.mod h1:Y8OyDefB55NHGzi+uJshYmE4Hn5juIQqJahsQJN5o2k=
-github.com/grokify/go-glip v0.5.7 h1:K5VlEePs2RKuZnB6xfG2KdCLxaJocBCb9wtgwQC2t/I=
-github.com/grokify/go-glip v0.5.7/go.mod h1:7XX07ruHv4sP0ho/La/FusJmVOadfIvHjTZx88n/FmM=
+github.com/grokify/go-glip v0.5.8 h1:2PN7fgBelKUI7oGZ8T4rnQ2JyAOVgopg2VPHloIYS/4=
+github.com/grokify/go-glip v0.5.8/go.mod h1:IU6tT0MV3J9+ocStgYxV2wsoZ7vRQ3MLvo8o2GKr+mw=
 github.com/grokify/gowebhooks v0.1.0 h1:xRuI299IiG8oSEmbYLJ7sDR5YPIypIKSnfhERwFvva0=
 github.com/grokify/gowebhooks v0.1.0/go.mod h1:eHFJFyNVXDS5QPoh6XHjxbnPXHsjvILTiH+k2ZeX86U=
 github.com/grokify/mogo v0.49.1 h1:YseoSOBnBUthHG/U58uB9m4shg/SASD/AT/yxVjjikw=
@@ -42,8 +42,8 @@ github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxec
 github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovkB8vQcUbaXHg=
 github.com/mattn/go-isatty v0.0.14/go.mod h1:7GGIvUiUoEMVVmxf/4nioHXj79iQHKdU27kJ6hsGG94=
 github.com/mattn/go-isatty v0.0.16/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
-github.com/mattn/go-isatty v0.0.17 h1:BTarxUcIeDqL27Mc+vyvdWYSL28zpIhv3RoTdsLMPng=
-github.com/mattn/go-isatty v0.0.17/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
+github.com/mattn/go-isatty v0.0.18 h1:DOKFKCQ7FNG2L1rbrmstDN4QVRdS89Nkh85u68Uwp98=
+github.com/mattn/go-isatty v0.0.18/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w8PVh93nsPXa1VrQ6jlwL5oN8l14QlcNfg=
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=

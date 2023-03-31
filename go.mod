@@ -3,7 +3,7 @@ module github.com/grokify/commonchat
 go 1.18
 
 require (
-	github.com/grokify/go-glip v0.5.7
+	github.com/grokify/go-glip v0.5.8
 	github.com/grokify/gowebhooks v0.1.0
 	github.com/grokify/mogo v0.49.1
 	github.com/jessevdk/go-flags v1.5.0
@@ -21,7 +21,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.16.3 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.17 // indirect
+	github.com/mattn/go-isatty v0.0.18 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
