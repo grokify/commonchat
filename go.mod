@@ -7,7 +7,7 @@ require (
 	github.com/grokify/gowebhooks v0.1.0
 	github.com/grokify/mogo v0.50.0
 	github.com/jessevdk/go-flags v1.5.0
-	github.com/rs/zerolog v1.29.1
+	github.com/rs/zerolog v1.30.0
 	github.com/valyala/fasthttp v1.48.0
 )
 
