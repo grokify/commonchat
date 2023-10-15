@@ -14,7 +14,7 @@ It is currently used with the Chathooks webhook formatting service:
 
 [https://github.com/grokify/chathooks](https://github.com/grokify/chathooks)
 
- [build-status-svg]: https://github.com/grokify/commonchat/workflows/go%20build/badge.svg
+ [build-status-svg]: https://github.com/grokify/commonchat/workflows/test/badge.svg
  [build-status-url]: https://github.com/grokify/commonchat/actions
  [coverage-status-svg]: https://coveralls.io/repos/grokify/commonchat/badge.svg?branch=master
  [coverage-status-url]: https://coveralls.io/r/grokify/commonchat?branch=master
