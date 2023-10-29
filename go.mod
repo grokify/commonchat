@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/grokify/go-glip v0.5.9
 	github.com/grokify/gowebhooks v0.1.0
-	github.com/grokify/mogo v0.56.0
+	github.com/grokify/mogo v0.57.0
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/rs/zerolog v1.31.0
 	github.com/valyala/fasthttp v1.50.0
