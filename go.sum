@@ -26,8 +26,8 @@ github.com/grokify/go-glip v0.5.11 h1:ZTVBGn3mLSl++85yAmQVxAG/moAfLWQScHiYtE1i9b
 github.com/grokify/go-glip v0.5.11/go.mod h1:JA6e5fOT5Xr0KBHQ0nbHEIAJ0iToV6+F/auRPo84Lrw=
 github.com/grokify/gowebhooks v0.1.0 h1:xRuI299IiG8oSEmbYLJ7sDR5YPIypIKSnfhERwFvva0=
 github.com/grokify/gowebhooks v0.1.0/go.mod h1:eHFJFyNVXDS5QPoh6XHjxbnPXHsjvILTiH+k2ZeX86U=
-github.com/grokify/mogo v0.59.0 h1:NkB+CPNs6goj486E7Q+hjY2UELqWtRIA/EVKNZUCKsk=
-github.com/grokify/mogo v0.59.0/go.mod h1:4d3z1044eMA/LJpj6+Vn19Ozh921yOk5tyTqSgYKnbg=
+github.com/grokify/mogo v0.60.0 h1:LTtSO8Nr6AAJT6KGEEJczsxWBAmarYLt4B1p0fcfWd8=
+github.com/grokify/mogo v0.60.0/go.mod h1:4d3z1044eMA/LJpj6+Vn19Ozh921yOk5tyTqSgYKnbg=
 github.com/huandu/xstrings v1.4.0 h1:D17IlohoQq4UcpqD7fDk80P7l+lwAmlFaBHgOipl2FU=
 github.com/huandu/xstrings v1.4.0/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=
 github.com/jessevdk/go-flags v1.5.0 h1:1jKYvbxEjfUl0fmqTCOfonvskHHXMjBySTLW4y9LFvc=
