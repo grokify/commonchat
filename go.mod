@@ -7,7 +7,7 @@ go 1.21
 require (
 	github.com/grokify/go-glip v0.5.13
 	github.com/grokify/gowebhooks v0.1.0
-	github.com/grokify/mogo v0.62.8
+	github.com/grokify/mogo v0.63.0
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/rs/zerolog v1.31.0
 	github.com/valyala/fasthttp v1.51.0
