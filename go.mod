@@ -8,7 +8,7 @@ require (
 	github.com/grokify/go-glip v0.5.13
 	github.com/grokify/gowebhooks v0.1.0
 	github.com/grokify/mogo v0.62.8
-	github.com/jessevdk/go-flags v1.5.0
+	github.com/jessevdk/go-flags v1.6.1
 	github.com/rs/zerolog v1.32.0
 	github.com/valyala/fasthttp v1.51.0
 )
@@ -25,7 +25,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a // indirect
-	golang.org/x/sys v0.16.0 // indirect
+	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )
 
