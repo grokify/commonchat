@@ -7,7 +7,7 @@ toolchain go1.22.5
 require (
 	github.com/grokify/go-glip v0.5.15
 	github.com/grokify/gowebhooks v0.1.0
-	github.com/grokify/mogo v0.64.7
+	github.com/grokify/mogo v0.64.8
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/rs/zerolog v1.33.0
 	github.com/valyala/fasthttp v1.55.0
