@@ -1,6 +1,7 @@
 # CommonChat
 
 [![Build Status][build-status-svg]][build-status-url]
+[![Lint Status][lint-status-svg]][lint-status-url]
 [![Go Report Card][goreport-svg]][goreport-url]
 [![Docs][docs-godoc-svg]][docs-godoc-url]
 [![License][license-svg]][license-url]
@@ -14,8 +15,10 @@ It is currently used with the Chathooks webhook formatting service:
 
 [https://github.com/grokify/chathooks](https://github.com/grokify/chathooks)
 
- [build-status-svg]: https://github.com/grokify/commonchat/workflows/test/badge.svg
- [build-status-url]: https://github.com/grokify/commonchat/actions
+ [build-status-svg]: https://github.com/grokify/go-glip/workflows/test/badge.svg
+ [build-status-url]: https://github.com/grokify/go-glip/actions/workflows/test.yaml
+ [lint-status-svg]: https://github.com/grokify/go-glip/workflows/lint/badge.svg
+ [lint-status-url]: https://github.com/grokify/go-glip/actions/workflows/lint.yaml
  [coverage-status-svg]: https://coveralls.io/repos/grokify/commonchat/badge.svg?branch=master
  [coverage-status-url]: https://coveralls.io/r/grokify/commonchat?branch=master
  [goreport-svg]: https://goreportcard.com/badge/github.com/grokify/commonchat
