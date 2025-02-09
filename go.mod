@@ -1,13 +1,11 @@
 module github.com/grokify/commonchat
 
-go 1.22.6
-
-toolchain go1.23.0
+go 1.23.2
 
 require (
-	github.com/grokify/go-glip v0.5.16
+	github.com/grokify/go-glip v0.5.18
 	github.com/grokify/gowebhooks v0.1.0
-	github.com/grokify/mogo v0.64.11
+	github.com/grokify/mogo v0.67.9
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/rs/zerolog v1.33.0
 	github.com/valyala/fasthttp v1.58.0
@@ -19,14 +17,13 @@ require (
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.17.11 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e // indirect
-	golang.org/x/sys v0.27.0 // indirect
-	golang.org/x/text v0.20.0 // indirect
+	golang.org/x/exp v0.0.0-20250207012021-f9890c6ad9f3 // indirect
+	golang.org/x/net v0.34.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/text v0.22.0 // indirect
 )
-
-// replace github.com/grokify/mogo v0.47.0 => ../mogo
