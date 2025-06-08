@@ -20,13 +20,13 @@ func NewSlackAdapter(webhookURLOrUID string) (*SlackAdapter, error) {
 		WebhookURLOrUID: webhookURLOrUID}, err
 }
 
-func (adapter *SlackAdapter) SendWebhook(urlOrUID string, ccMsg commonchat.Message, slackmsg interface{}, opts map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func (adapter *SlackAdapter) SendWebhook(urlOrUID string, ccMsg commonchat.Message, slackmsg any, opts map[string]any) (*fasthttp.Request, *fasthttp.Response, error) {
 	slackMessage := ConvertCommonMessage(ccMsg)
-	slackmsg = &slackMessage
+	slackmsg = &slackMessage //nolint:ineffassign // slackmsg is meant to be a pointer
 	return adapter.SlackClient.PostWebhookFast(urlOrUID, slackMessage)
 }
 
-func (adapter *SlackAdapter) SendMessage(message commonchat.Message, slackmsg interface{}, opts map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func (adapter *SlackAdapter) SendMessage(message commonchat.Message, slackmsg any, opts map[string]any) (*fasthttp.Request, *fasthttp.Response, error) {
 	return adapter.SendWebhook(adapter.WebhookURLOrUID, message, slackmsg, opts)
 }
 

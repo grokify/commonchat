@@ -26,7 +26,7 @@ func NewGlipAdapter(webhookURLOrUID string, cfg *config.ConverterConfig) *GlipAd
 		CommonConverter: classic.NewGlipMessageConverter(cfg)}
 }
 
-func NewGlipAdapterMSI(webhookURLOrUID string, cfg map[string]interface{}) (*GlipAdapter, error) {
+func NewGlipAdapterMSI(webhookURLOrUID string, cfg map[string]any) (*GlipAdapter, error) {
 	ccfg, err := config.NewConverterConfigMSI(cfg)
 	if err != nil {
 		return nil, err
@@ -40,17 +40,17 @@ func (adapter *GlipAdapter) Clone() *GlipAdapter {
 		adapter.CommonConverter.Config.Clone())
 }
 
-func (adapter *GlipAdapter) SendWebhook(urlOrUID string, message commonchat.Message, glipmsg interface{}, cfg map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func (adapter *GlipAdapter) SendWebhook(urlOrUID string, message commonchat.Message, glipmsg any, cfg map[string]any) (*fasthttp.Request, *fasthttp.Response, error) {
 	if len(cfg) > 0 {
 		newCfg, err := adapter.CommonConverter.Config.UpsertMSI(cfg)
 		if err != nil {
 			return nil, nil, err
 		}
 		thisAdapter := NewGlipAdapter(adapter.WebhookURLOrUID, newCfg)
-		return thisAdapter.SendWebhook(urlOrUID, message, glipmsg, map[string]interface{}{})
+		return thisAdapter.SendWebhook(urlOrUID, message, glipmsg, map[string]any{})
 	}
 	glipMessage := adapter.CommonConverter.ConvertCommonMessage(message)
-	glipmsg = &glipMessage
+	glipmsg = &glipMessage //nolint:ineffassign // glipmsg is meant to be a pointer
 
 	glipMessageBytes, err := json.Marshal(glipMessage)
 	if err != nil {
@@ -63,7 +63,7 @@ func (adapter *GlipAdapter) SendWebhook(urlOrUID string, message commonchat.Mess
 	return adapter.GlipClient.PostWebhookGUIDFast(urlOrUID, glipMessage)
 }
 
-func (adapter *GlipAdapter) SendMessage(message commonchat.Message, glipmsg interface{}, opts map[string]interface{}) (*fasthttp.Request, *fasthttp.Response, error) {
+func (adapter *GlipAdapter) SendMessage(message commonchat.Message, glipmsg any, opts map[string]any) (*fasthttp.Request, *fasthttp.Response, error) {
 	return adapter.SendWebhook(adapter.WebhookURLOrUID, message, glipmsg, opts)
 }
 

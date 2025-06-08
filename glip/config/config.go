@@ -29,7 +29,7 @@ type ConverterConfig struct {
 	ConvertTripleBacktick          bool   `json:"convertTripleBacktick,omitempty"`
 }
 
-func NewConverterConfigMSI(cfg map[string]interface{}) (*ConverterConfig, error) {
+func NewConverterConfigMSI(cfg map[string]any) (*ConverterConfig, error) {
 	ccfg := &ConverterConfig{}
 	return ccfg, jsonutil.UnmarshalMSI(cfg, ccfg)
 }
@@ -53,7 +53,7 @@ func (cfg *ConverterConfig) Clone() *ConverterConfig {
 		ConvertTripleBacktick:          cfg.ConvertTripleBacktick}
 }
 
-func (cfg *ConverterConfig) UpsertMSI(data map[string]interface{}) (*ConverterConfig, error) {
+func (cfg *ConverterConfig) UpsertMSI(data map[string]any) (*ConverterConfig, error) {
 	newCfg := cfg.Clone()
 	errMsgs := []string{}
 	for k, v := range data {
