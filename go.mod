@@ -5,7 +5,7 @@ go 1.23.2
 require (
 	github.com/grokify/go-glip v0.5.20
 	github.com/grokify/gowebhooks v0.1.0
-	github.com/grokify/mogo v0.70.4
+	github.com/grokify/mogo v0.70.6
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/rs/zerolog v1.34.0
 	github.com/valyala/fasthttp v1.62.0
