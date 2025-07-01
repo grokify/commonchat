@@ -8,11 +8,11 @@ require (
 	github.com/grokify/mogo v0.70.4
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/rs/zerolog v1.34.0
-	github.com/valyala/fasthttp v1.62.0
+	github.com/valyala/fasthttp v1.63.0
 )
 
 require (
-	github.com/andybalholm/brotli v1.1.1 // indirect
+	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/grokify/bitcoinmath v0.1.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
