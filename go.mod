@@ -8,11 +8,11 @@ require (
 	github.com/grokify/mogo v0.70.4
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/rs/zerolog v1.34.0
-	github.com/valyala/fasthttp v1.62.0
+	github.com/valyala/fasthttp v1.65.0
 )
 
 require (
-	github.com/andybalholm/brotli v1.1.1 // indirect
+	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/grokify/bitcoinmath v0.1.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -23,7 +23,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	golang.org/x/exp v0.0.0-20250606033433-dcc06ee1d476 // indirect
-	golang.org/x/net v0.41.0 // indirect
-	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.26.0 // indirect
+	golang.org/x/net v0.43.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/text v0.28.0 // indirect
 )
