@@ -5,7 +5,7 @@ go 1.24.0
 require (
 	github.com/grokify/go-glip v0.5.21
 	github.com/grokify/gowebhooks v0.1.0
-	github.com/grokify/mogo v0.71.7
+	github.com/grokify/mogo v0.71.8
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/rs/zerolog v1.34.0
 	github.com/valyala/fasthttp v1.68.0
@@ -24,6 +24,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	golang.org/x/exp v0.0.0-20251023183803-a4bb9ffd2546 // indirect
 	golang.org/x/net v0.46.0 // indirect
-	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/text v0.30.0 // indirect
 )
