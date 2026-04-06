@@ -6,8 +6,8 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/grokify/bitcoinmath v0.1.0 h1:NySFRW09cYQlTXrUw6QpjNgtrudC5QlgsqgXWWNN+50=
 github.com/grokify/bitcoinmath v0.1.0/go.mod h1:Y8OyDefB55NHGzi+uJshYmE4Hn5juIQqJahsQJN5o2k=
-github.com/grokify/go-glip v0.5.21 h1:Ixoqay2mGG2zAlaLoBLh9Zk81J7OHVeJoqqTVs7Ii24=
-github.com/grokify/go-glip v0.5.21/go.mod h1:EbAlnLAfcBn/Ipbc4+W8BBNvKrSw6/scWBHx/KLKxv4=
+github.com/grokify/go-glip v0.5.22 h1:GPsVw0PKvwV3LUX+Y6ZdBfhqKJJx8fSRxMRFMuf4+qY=
+github.com/grokify/go-glip v0.5.22/go.mod h1:hlg92jUeKsb2Y+ls24j9qph41DEw4NjR/bun/lrX/d4=
 github.com/grokify/gowebhooks v0.1.0 h1:xRuI299IiG8oSEmbYLJ7sDR5YPIypIKSnfhERwFvva0=
 github.com/grokify/gowebhooks v0.1.0/go.mod h1:eHFJFyNVXDS5QPoh6XHjxbnPXHsjvILTiH+k2ZeX86U=
 github.com/grokify/mogo v0.74.1 h1:oODNqQFBWD4lNEdr5gq0eDMVUUyP26bOEboK9UZycnw=

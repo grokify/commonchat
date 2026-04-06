@@ -3,7 +3,7 @@ module github.com/grokify/commonchat
 go 1.26.0
 
 require (
-	github.com/grokify/go-glip v0.5.21
+	github.com/grokify/go-glip v0.5.22
 	github.com/grokify/gowebhooks v0.1.0
 	github.com/grokify/mogo v0.74.1
 	github.com/jessevdk/go-flags v1.6.1
